@@ -1,8 +1,11 @@
 import './App.css';
+import Header from '../Header/Header';
 
 function App() {
   return (
-    <h1 className='title'>Movies Explorer</h1>
+    <div className='container'>
+      <Header />
+    </div>
   );
 }
 

@@ -1,0 +1,16 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--main-text);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.nav__link:not(:last-child) {
+  margin-right: 16px;
+}
