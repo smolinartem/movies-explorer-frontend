@@ -5,7 +5,8 @@
 .page {
   box-sizing: border-box;
   min-width: 320px;
-  max-width: 1280px;
+  /* max-width: 1280px; */
+  max-width: 1600px;
   width: 100%;
   margin: 0 auto;
 
@@ -21,4 +22,28 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section-title {
+  margin: 0;
+  color: var(--main-text);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+}
+
+.section-title::after {
+  margin-top: 23px;
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: #dadada;
 }
