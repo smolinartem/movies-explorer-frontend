@@ -10,18 +10,18 @@ function Header() {
         <Link to='/' className='header__link'>
           <img className='header__logo' src={logo} alt='Website logo' />
         </Link>
-        <Navigation />
+        {/*         <Navigation />
         <Link className='header__profile' to='/profile'>
           Аккаунт
-        </Link>
-        {/*       <nav className='header__auth'>
-        <Link className='header__signup' to='/signup'>
-          Регистрация
-        </Link>
-        <Link className='header__signin' to='/signin'>
-          Войти
-        </Link>
-      </nav> */}
+        </Link> */}
+        <nav className='header__auth'>
+          <Link className='header__signup' to='/signup'>
+            Регистрация
+          </Link>
+          <Link className='header__signin' to='/signin'>
+            Войти
+          </Link>
+        </nav>
       </div>
     </header>
   )

@@ -1,0 +1,22 @@
+.movies__container {
+  display: flex;
+  flex-direction: column;
+}
+.btn-more {
+  margin-top: 50px;
+  margin-bottom: 80px;
+  width: 320px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #424242;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  align-self: center;
+
+  color: var(--main-text);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+}
