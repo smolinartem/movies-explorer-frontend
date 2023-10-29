@@ -18,7 +18,7 @@ function AboutMe() {
               фриланс-заказами и&nbsp;ушёл с&nbsp;постоянной работы.
             </p>
             <a
-              className='about-me__link'
+              className='about-me__link hover'
               href='https://github.com/smolinartem'
               target='_blank'
               rel='noreferrer'
@@ -27,7 +27,9 @@ function AboutMe() {
               Github
             </a>
           </div>
-          <img className='about-me__avatar' src={avatar} alt='avatar' />
+          <div className='about-me__avatar'>
+            <img className='about-me__img' src={avatar} alt='avatar' />
+          </div>
         </div>
       </div>
     </section>

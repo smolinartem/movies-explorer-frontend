@@ -43,4 +43,9 @@
   background-position: center;
   background-repeat: no-repeat;
   flex-shrink: 0;
+  transition: scale 0.8s ease;
+}
+
+.search__submit:hover {
+  scale: 1.1;
 }

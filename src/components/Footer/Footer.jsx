@@ -10,7 +10,7 @@ function Footer() {
           <ul className='footer__list'>
             <li className='footer__item'>
               <a
-                className='footer__link'
+                className='footer__link hover'
                 href='https://practicum.yandex.ru/'
                 target='_blank'
                 rel='noreferrer'
@@ -20,7 +20,7 @@ function Footer() {
             </li>
             <li className='footer__item'>
               <a
-                className='footer__link'
+                className='footer__link hover'
                 href='https://github.com/smolinartem/movies-explorer-frontend'
                 target='_blank'
                 rel='noreferrer'

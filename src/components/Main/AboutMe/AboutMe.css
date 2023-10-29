@@ -57,6 +57,15 @@
 
 .about-me__avatar {
   border-radius: 10px;
+  overflow: hidden;
   max-width: 270px;
-  width: 100%;
+  max-height: 327px;
+}
+
+.about-me__img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  vertical-align: top;
 }

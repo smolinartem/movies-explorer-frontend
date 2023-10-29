@@ -3,7 +3,6 @@ import MoviesCard from '../MoviesCard/MoviesCard'
 import { movies } from '../../utils/MoviesList'
 
 function MoviesCardList() {
-  console.log(movies)
   return (
     <ul className='movies-list'>
       {movies.map((movie) => (

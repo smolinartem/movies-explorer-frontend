@@ -1,13 +1,10 @@
 .promo {
   max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 10px;
-  background: #272727;
-}
-
-.promo__container {
+  margin: 20px auto 0;
   padding-top: 160px;
   padding-bottom: 30px;
+  border-radius: 10px;
+  background: #272727;
 }
 
 .promo__title {
@@ -30,6 +27,7 @@
   align-items: center;
   justify-content: center;
   list-style: none;
+  gap: 10px;
 }
 
 .promo__link {
@@ -48,8 +46,4 @@
   font-weight: 500;
   line-height: 16px;
   cursor: pointer;
-}
-
-.promo__item:not(:last-child) {
-  margin-right: 10px;
 }

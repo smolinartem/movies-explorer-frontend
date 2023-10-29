@@ -9,17 +9,17 @@ function Promo() {
         <nav className='promo__nav'>
           <ul className='promo__list'>
             <li className='promo__item'>
-              <a className='promo__link' href='#about'>
+              <a className='promo__link hover' href='#about'>
                 О проекте
               </a>
             </li>
             <li className='promo__item'>
-              <a className='promo__link' href='#tech'>
+              <a className='promo__link hover' href='#tech'>
                 Технологии
               </a>
             </li>
             <li className='promo__item'>
-              <a className='promo__link' href='#student'>
+              <a className='promo__link hover' href='#student'>
                 Студент
               </a>
             </li>

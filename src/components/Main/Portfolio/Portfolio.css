@@ -21,7 +21,7 @@
   margin-top: 20px;
 }
 
-.portfolio__item::after {
+.portfolio__item:not(:last-child):after {
   margin-top: 19px;
   content: '';
   display: block;

@@ -8,7 +8,7 @@ function Portfolio() {
         <ul className='portfolio__list'>
           <li className='portfolio__item'>
             <a
-              className='portfolio__link'
+              className='portfolio__link hover'
               href='https://github.com/smolinartem/how-to-learn'
               target='_blank'
               rel='noreferrer'
@@ -19,7 +19,7 @@ function Portfolio() {
           </li>
           <li className='portfolio__item'>
             <a
-              className='portfolio__link'
+              className='portfolio__link hover'
               href='https://github.com/smolinartem/russian-travel'
               target='_blank'
               rel='noreferrer'
@@ -30,7 +30,7 @@ function Portfolio() {
           </li>
           <li className='portfolio__item'>
             <a
-              className='portfolio__link'
+              className='portfolio__link hover'
               href='https://github.com/smolinartem/mesto-react'
               target='_blank'
               rel='noreferrer'

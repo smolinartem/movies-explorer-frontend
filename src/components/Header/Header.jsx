@@ -1,24 +1,22 @@
 import './Header.css'
 import { Link } from 'react-router-dom'
-import logo from '../../images/logo.svg'
+import Logo from '../Logo/Logo'
 import Navigation from '../Navigation/Navigation'
 
 function Header() {
   return (
     <header className='header'>
       <div className='header__container container'>
-        <Link to='/' className='header__link'>
-          <img className='header__logo' src={logo} alt='Website logo' />
-        </Link>
-        {/*         <Navigation />
-        <Link className='header__profile' to='/profile'>
+        <Logo />
+        <Navigation />
+        <Link className='header__profile hover' to='/profile'>
           Аккаунт
-        </Link> */}
+        </Link>
         <nav className='header__auth'>
-          <Link className='header__signup' to='/signup'>
+          <Link className='header__signup hover' to='/signup'>
             Регистрация
           </Link>
-          <Link className='header__signin' to='/signin'>
+          <Link className='header__signin hover' to='/signin'>
             Войти
           </Link>
         </nav>

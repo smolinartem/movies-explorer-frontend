@@ -42,6 +42,7 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .tech__item {
@@ -56,8 +57,4 @@
 
   border-radius: 10px;
   background: #303030;
-}
-
-.tech__item:not(:last-child) {
-  margin-right: 10px;
 }
