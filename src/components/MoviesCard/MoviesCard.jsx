@@ -4,7 +4,6 @@ import './MoviesCard.css'
 
 function MoviesCard({ name, imageUrl }) {
   const location = useLocation()
-  console.log(location)
   const [saved, setSaved] = useState(false)
 
   const handleSave = () => {

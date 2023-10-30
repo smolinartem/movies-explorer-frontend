@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './Login.css'
-import Logo from '../Logo/Logo'
+import Logo from '../../components/Logo/Logo'
 
 function Login() {
   return (

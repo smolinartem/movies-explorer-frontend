@@ -1,7 +1,9 @@
 import './Profile.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
+  const navigate = useNavigate()
   const [name, setName] = useState('Артём')
   const [email, setEmail] = useState('artem@yandex.ru')
   const [isDisabled, setIsDisabled] = useState(true)
@@ -10,8 +12,13 @@ function Profile() {
     setIsDisabled(!isDisabled)
   }
 
+  const handleExit = () => {
+    navigate('/signin', { replace: true })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
+    setIsDisabled(!isDisabled)
     console.log(name, email)
   }
 
@@ -47,18 +54,22 @@ function Profile() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </fieldset>
-          <button
-            className='profile__edit'
-            type={isDisabled ? 'submit' : 'button'}
-            onClick={handleEdit}
-          >
-            {isDisabled ? 'Редактировать' : 'Сохранить'}
-          </button>
-        </form>
 
-        <button className='profile__exit' type='button'>
-          Выйти из аккаунта
-        </button>
+          {isDisabled ? (
+            <div className='profile__bottom'>
+              <button className='profile__edit' type='button' onClick={handleEdit}>
+                Редактировать
+              </button>
+              <button className='profile__exit' type='button' onClick={handleExit}>
+                Выйти из аккаунта
+              </button>
+            </div>
+          ) : (
+            <button className='profile__submit' type='submit'>
+              Сохранить
+            </button>
+          )}
+        </form>
       </div>
     </section>
   )

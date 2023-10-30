@@ -1,5 +1,5 @@
 import './AboutMe.css'
-import avatar from '../../../images/avatar.jpg'
+import avatar from '../../images/avatar.jpg'
 
 function AboutMe() {
   return (
