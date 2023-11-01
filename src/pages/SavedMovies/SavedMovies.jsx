@@ -5,7 +5,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 
 function SavedMovies() {
   return (
-    <section className='saved-movies'>
+    <section className='saved-movies' aria-label='Section saved movies'>
       <div className='saved-movies__container container'>
         <SearchForm />
         <MoviesCardList />

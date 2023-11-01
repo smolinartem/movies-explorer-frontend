@@ -12,6 +12,10 @@
   line-height: 18px;
 }
 
+.nav__link_active {
+  border-bottom: 2px solid #fff;
+}
+
 .nav__link:not(:last-child) {
   margin-right: 16px;
 }

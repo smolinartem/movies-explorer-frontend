@@ -11,11 +11,13 @@ import SavedMovies from './pages/SavedMovies/SavedMovies'
 import Profile from './pages/Profile/Profile'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
+import NotFound from './pages/NotFound/NotFound'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,

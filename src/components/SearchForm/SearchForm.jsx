@@ -5,7 +5,13 @@ function SearchForm() {
   return (
     <form className='search'>
       <fieldset className='search__info'>
-        <input className='search__input' placeholder='Фильмы' />
+        <input
+          className='search__input'
+          name='search-film'
+          placeholder='Фильмы'
+          type='search'
+          autoComplete='off'
+        />
         <button className='search__submit' type='submit' />
       </fieldset>
 

@@ -23,7 +23,7 @@ function Profile() {
   }
 
   return (
-    <section className='profile'>
+    <section className='profile' aria-label='Section profile'>
       <div className='profile__container container'>
         <h2 className='profile__title'>Привет, Артём!</h2>
 
@@ -34,6 +34,7 @@ function Profile() {
               className='profile__input'
               autoComplete='off'
               disabled={isDisabled}
+              placeholder='Имя'
               type='text'
               name='name'
               required
@@ -47,6 +48,7 @@ function Profile() {
               className='profile__input'
               autoComplete='off'
               disabled={isDisabled}
+              placeholder='email'
               type='text'
               name='email'
               required
@@ -65,7 +67,7 @@ function Profile() {
               </button>
             </div>
           ) : (
-            <button className='profile__submit' type='submit'>
+            <button className='profile__submit hover' type='submit'>
               Сохранить
             </button>
           )}

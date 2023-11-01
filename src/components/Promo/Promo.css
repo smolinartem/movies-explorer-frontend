@@ -1,15 +1,13 @@
 .promo {
-  max-width: 1200px;
-  margin: 20px auto 0;
+  margin: 20px 40px 0 40px;
   padding-top: 160px;
   padding-bottom: 30px;
   border-radius: 10px;
-  background: #272727;
+  background: var(--section-accent-bg);
 }
 
 .promo__title {
-  margin: 0 auto;
-  padding-bottom: 150px;
+  margin: 0 auto 150px;
   max-width: 730px;
 
   color: var(--main-text);
@@ -46,4 +44,15 @@
   font-weight: 500;
   line-height: 16px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .promo {
+    margin: 20px 20px 0 20px;
+    padding-top: 350px;
+  }
+  .promo__title {
+    font-size: 40px;
+    margin-bottom: 315px;
+  }
 }

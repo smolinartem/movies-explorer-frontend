@@ -1,10 +1,10 @@
-.card {
+.movie {
   max-width: 360px;
   display: flex;
   flex-direction: column;
 }
 
-.card__content {
+.movie__content {
   position: relative;
   max-height: 200px;
   border-radius: 14px;
@@ -15,19 +15,19 @@
   background: #2f2f2f;
 }
 
-.card__content:hover .card__save {
+.movie__content:hover .movie__save {
   opacity: 1;
 }
 
-.card__content:hover .card__saved {
+.movie__content:hover .movie__saved {
   opacity: 1;
 }
 
-.card__content:hover .card__delete {
+.movie__content:hover .movie__delete {
   opacity: 1;
 }
 
-.card__save {
+.movie__save {
   opacity: 0;
   transition: all 0.4s ease;
   position: absolute;
@@ -53,7 +53,7 @@
   line-height: 9px;
 }
 
-.card__saved {
+.movie__saved {
   opacity: 0;
   transition: all 0.4s ease;
   position: absolute;
@@ -76,7 +76,7 @@
   cursor: pointer;
 }
 
-.card__delete {
+.movie__delete {
   opacity: 0;
   transition: all 0.4s ease;
   position: absolute;
@@ -99,7 +99,7 @@
   cursor: pointer;
 }
 
-.card__img {
+.movie__img {
   width: 100%;
   object-fit: cover;
   object-position: center;
@@ -107,21 +107,22 @@
   margin: auto;
 }
 
-.card__info {
+.movie__info {
   padding: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.card__name {
+.movie__name {
+  padding-right: 10px;
   color: var(--main-text);
   font-size: 13px;
   font-weight: 500;
   line-height: normal;
 }
 
-.card__duration {
+.movie__duration {
   padding: 3px 4px;
   border-radius: 3px;
   background: #2f2f2f;

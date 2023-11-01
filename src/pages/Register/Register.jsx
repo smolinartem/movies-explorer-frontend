@@ -1,31 +1,39 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 import Logo from '../../components/Logo/Logo'
-import { useState } from 'react'
+
+import { useForm } from '../../hooks/useForm'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 
 function Register() {
-  const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const { values, setValues, errors, handleChange, isValid, setIsValid } = useForm()
+
   const handleSubmit = (event) => {
-    event.prevent.default()
+    event.preventDefault()
+
+    navigate('/signin', { replace: true, state: values.email })
+
+    setValues({})
+    setIsValid(false)
   }
 
-  const handleInput = (event) => {
-    setError(event.target.validationMessage)
-  }
   return (
-    <section className='register'>
-      <div className='register__container container'>
+    <section className='authorization' aria-label='Section register'>
+      <div className='authorization__container container'>
         <Logo />
-        <h2 className='register__title'>Добро пожаловать!</h2>
-        <form className='register__form' name='register-form' onSubmit={handleSubmit}>
-          <fieldset className='register__fieldset'>
-            <label className='register__label' htmlFor='name'>
+        <h2 className='authorization__title'>Добро пожаловать!</h2>
+        <form className='authorization__form' name='register-form' onSubmit={handleSubmit} noValidate>
+          <fieldset className='authorization__fieldset'>
+            <label className='authorization__label' htmlFor='name'>
               Имя
             </label>
             <input
-              onChange={handleInput}
-              className='register__input'
+              value={values.name || ''}
+              onChange={handleChange}
+              className={`authorization__input ${errors.name ? 'authorization__input_invalid' : ''}`}
               autoComplete='off'
+              placeholder='name'
               name='name'
               id='name'
               type='text'
@@ -33,16 +41,18 @@ function Register() {
               minLength={2}
               maxLength={30}
             ></input>
-            <span>{error}</span>
           </fieldset>
 
-          <fieldset className='register__fieldset'>
-            <label className='register__label' htmlFor='email'>
+          <fieldset className='authorization__fieldset'>
+            <label className='authorization__label' htmlFor='email'>
               E-mail
             </label>
             <input
-              className='register__input'
+              value={values.email || ''}
+              onChange={handleChange}
+              className={`authorization__input ${errors.email ? 'authorization__input_invalid' : ''}`}
               autoComplete='off'
+              placeholder='email'
               name='email'
               id='email'
               type='email'
@@ -50,27 +60,43 @@ function Register() {
             ></input>
           </fieldset>
 
-          <fieldset className='register__fieldset'>
-            <label className='register__label' htmlFor='password'>
+          <fieldset className='authorization__fieldset'>
+            <label className='authorization__label' htmlFor='password'>
               Пароль
             </label>
             <input
-              className='register__input'
+              value={values.password || ''}
+              onChange={handleChange}
+              className={`authorization__input ${errors.password ? 'authorization__input_invalid' : ''}`}
               autoComplete='off'
+              placeholder='password'
               name='password'
               id='password'
               type='password'
               required
             ></input>
+            <span className='authorization__error'>{errors.name || ''}</span>
+            <span className='authorization__error'>{errors.email || ''}</span>
+            <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 
-          <button className='register__submit' type='submit'>
+          <ErrorMessage />
+
+          <button
+            disabled={!isValid}
+            className={
+              !isValid
+                ? 'authorization__submit authorization__submit_disabled'
+                : 'authorization__submit hover'
+            }
+            type='submit'
+          >
             Зарегистрироваться
           </button>
         </form>
-        <div className='register__bottom'>
-          <span className='register__question'>Уже зарегистрированы?</span>
-          <Link className='register__link hover' to='/signin'>
+        <div className='authorization__bottom'>
+          <span className='authorization__question'>Уже зарегистрированы?</span>
+          <Link className='authorization__link hover' to='/signin'>
             Войти
           </Link>
         </div>

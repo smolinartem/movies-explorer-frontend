@@ -1,47 +1,84 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Login.css'
 import Logo from '../../components/Logo/Logo'
+import { useForm } from '../../hooks/useForm'
+import { useEffect } from 'react'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 
 function Login() {
+  const location = useLocation()
+  const { values, errors, handleChange, isValid, setValues, setIsValid } = useForm()
+
+  useEffect(() => {
+    setValues({ email: location.state })
+  }, [setValues, location.state])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    setValues({})
+    setIsValid(false)
+  }
+
   return (
-    <section className='register'>
-      <div className='register__container container'>
+    <section className='authorization' aria-label='Section login'>
+      <div className='authorization__container container'>
         <Logo />
-        <h2 className='register__title'>Рады видеть!</h2>
-        <form className='register__form' name='register-form'>
-          <fieldset className='register__fieldset'>
-            <label className='register__label' htmlFor='email'>
+        <h2 className='authorization__title'>Рады видеть!</h2>
+        <form className='authorization__form' name='login-form' onSubmit={handleSubmit} noValidate>
+          <fieldset className='authorization__fieldset'>
+            <label className='authorization__label' htmlFor='email'>
               E-mail
             </label>
             <input
-              className='register__input'
+              value={values.email || ''}
+              onChange={handleChange}
+              className={`authorization__input ${errors.email ? 'authorization__input_invalid' : ''}`}
               autoComplete='off'
+              placeholder='email'
               type='email'
               name='email'
               id='email'
-            ></input>
+              required
+            />
           </fieldset>
 
-          <fieldset className='register__fieldset'>
-            <label className='register__label' htmlFor='password'>
+          <fieldset className='authorization__fieldset'>
+            <label className='authorization__label' htmlFor='password'>
               Пароль
             </label>
             <input
-              className='register__input'
+              value={values.password || ''}
+              onChange={handleChange}
+              className={`authorization__input ${errors.password ? 'authorization__input_invalid' : ''}`}
               autoComplete='off'
-              type='password'
+              placeholder='password'
               name='password'
               id='password'
-            ></input>
+              type='password'
+              required
+            />
+            <span className='authorization__error'>{errors.email || ''}</span>
+            <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 
-          <button className='register__submit' type='submit'>
+          <ErrorMessage />
+
+          <button
+            disabled={!isValid}
+            className={
+              !isValid
+                ? 'authorization__submit authorization__submit_disabled'
+                : 'authorization__submit hover'
+            }
+            type='submit'
+          >
             Войти
           </button>
         </form>
-        <div className='register__bottom'>
-          <span className='register__question'>Ещё не зарегистрированы?</span>
-          <Link className='register__link hover' to='/signup'>
+        <div className='authorization__bottom'>
+          <span className='authorization__question'>Ещё не зарегистрированы?</span>
+          <Link className='authorization__link hover' to='/signup'>
             Регистрация
           </Link>
         </div>
