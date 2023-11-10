@@ -8,8 +8,7 @@ function Techs() {
         <div className='tech__info'>
           <p className='tech__subtitle'>7 технологий</p>
           <p className='tech__desc'>
-            На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в&nbsp;дипломном
-            проекте.
+            На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в дипломном проекте.
           </p>
           <ul className='tech__list'>
             <li className='tech__item'>HTML</li>

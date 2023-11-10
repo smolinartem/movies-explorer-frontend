@@ -52,7 +52,38 @@
     padding-top: 350px;
   }
   .promo__title {
+    max-width: 660px;
     font-size: 40px;
+    line-height: 52px;
+    letter-spacing: -1.6px;
     margin-bottom: 315px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .promo {
+    margin: 15px 14px 0 14px;
+    padding-top: 218px;
+    padding-bottom: 17px;
+  }
+  .promo__container {
+    padding: 0;
+  }
+  .promo__title {
+    margin-bottom: 214px;
+    font-size: 29px;
+    line-height: 37px;
+    letter-spacing: -1.16px;
+  }
+  .promo__list {
+    gap: 6px;
+  }
+  .promo__link {
+    width: 82px;
+    height: 26px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
   }
 }

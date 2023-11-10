@@ -19,3 +19,9 @@
 .nav__link:not(:last-child) {
   margin-right: 16px;
 }
+
+@media screen and (max-width: 770px) {
+  .nav {
+    display: none;
+  }
+}

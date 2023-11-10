@@ -41,6 +41,7 @@ function Login() {
               id='email'
               required
             />
+            <span className='authorization__error'>{errors.email || ''}</span>
           </fieldset>
 
           <fieldset className='authorization__fieldset'>
@@ -58,7 +59,6 @@ function Login() {
               type='password'
               required
             />
-            <span className='authorization__error'>{errors.email || ''}</span>
             <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 

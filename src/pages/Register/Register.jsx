@@ -40,7 +40,8 @@ function Register() {
               required
               minLength={2}
               maxLength={30}
-            ></input>
+            />
+            <span className='authorization__error'>{errors.name || ''}</span>
           </fieldset>
 
           <fieldset className='authorization__fieldset'>
@@ -57,7 +58,8 @@ function Register() {
               id='email'
               type='email'
               required
-            ></input>
+            />
+            <span className='authorization__error'>{errors.email || ''}</span>
           </fieldset>
 
           <fieldset className='authorization__fieldset'>
@@ -74,9 +76,7 @@ function Register() {
               id='password'
               type='password'
               required
-            ></input>
-            <span className='authorization__error'>{errors.name || ''}</span>
-            <span className='authorization__error'>{errors.email || ''}</span>
+            />
             <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 

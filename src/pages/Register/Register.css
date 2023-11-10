@@ -1,5 +1,6 @@
 .authorization {
   padding-top: 70px;
+  padding-bottom: 70px;
 }
 .authorization__container {
   max-width: 396px;
@@ -27,13 +28,15 @@
   margin: 0;
   padding: 0;
   border: none;
+  margin-bottom: 6px;
 }
-.authorization__fieldset:not(:last-of-type) {
-  margin-bottom: 10px;
+
+.authorization__fieldset:last-of-type {
+  margin-bottom: 44px;
 }
 
 .authorization__label {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   display: block;
   color: #8b8b8b;
   font-size: 10px;
@@ -74,7 +77,7 @@
 }
 
 .authorization__error {
-  min-height: 24px;
+  min-height: 12px;
   margin-top: 4px;
   display: block;
   color: var(--accent-red);
@@ -126,4 +129,35 @@
 .authorization__link {
   text-decoration: none;
   color: var(--accent-blue);
+}
+
+@media screen and (max-width: 800px) {
+  .authorization {
+    padding-top: 230px;
+    padding-bottom: 230px;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .authorization {
+    padding-top: 57px;
+    padding-bottom: 30px;
+  }
+  .authorization__container {
+    padding: 0 30px;
+    align-items: center;
+  }
+  .authorization__title {
+    margin-top: 47px;
+    margin-bottom: 83px;
+  }
+  .authorization__fieldset:last-of-type {
+    margin-bottom: 130px;
+  }
+  .authorization__submit {
+    font-size: 12px;
+  }
+  .authorization__bottom {
+    font-size: 12px;
+  }
 }
