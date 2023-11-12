@@ -12,7 +12,7 @@ function Register() {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    navigate('/signin', { replace: true, state: values.email })
+    navigate('/', { replace: true, state: true })
 
     setValues({})
     setIsValid(false)
@@ -84,11 +84,7 @@ function Register() {
 
           <button
             disabled={!isValid}
-            className={
-              !isValid
-                ? 'authorization__submit authorization__submit_disabled'
-                : 'authorization__submit hover'
-            }
+            className={`authorization__submit ${isValid ? 'hover' : 'authorization__submit_disabled'}`}
             type='submit'
           >
             Зарегистрироваться

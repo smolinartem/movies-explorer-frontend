@@ -20,3 +20,18 @@
   font-weight: 500;
   line-height: normal;
 }
+
+@media screen and (max-width: 800px) {
+  .movies__container {
+    padding: 0 30px;
+  }
+}
+@media screen and (max-width: 431px) {
+  .movies__container {
+    padding: 0 10px;
+  }
+  .btn-more {
+    width: 240px;
+    height: 36px;
+  }
+}

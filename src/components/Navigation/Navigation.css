@@ -1,27 +1,16 @@
 .nav {
-  margin-left: 58px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
-
 .nav__link {
+  padding-bottom: 6px;
+  display: block;
   text-decoration: none;
   color: var(--main-text);
-  font-size: 13px;
-  line-height: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
 }
-
 .nav__link_active {
   border-bottom: 2px solid #fff;
-}
-
-.nav__link:not(:last-child) {
-  margin-right: 16px;
-}
-
-@media screen and (max-width: 770px) {
-  .nav {
-    display: none;
-  }
 }

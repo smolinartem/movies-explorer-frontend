@@ -1,58 +1,57 @@
-import { useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 import './Header.css'
 import Logo from '../Logo/Logo'
+import AccountLink from '../AccountLink/AccountLink'
+import SideBar from '../SideBar/SideBar'
 import Navigation from '../Navigation/Navigation'
-
-const links = {
-  active: 'header__link hover header__link_active',
-  inactive: 'header__link hover',
-}
+import { HEADER_NAV_CONFIG } from '../../utils/config'
 
 function Header() {
-  const { pathname } = useLocation()
+  const { pathname, state } = useLocation()
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    setIsLoggedIn(state)
+  }, [state])
+
+  const handleBurger = () => {
+    setIsOpen(!isOpen)
+    document.body.classList.toggle('no-scroll')
+  }
+
+  const headerNotAuthorized = (
+    <>
+      <Logo className='header__logo' />
+      <nav className='header__auth'>
+        <Link className='header__signup hover' to='/signup'>
+          Регистрация
+        </Link>
+        <Link className='header__signin hover' to='/signin'>
+          Войти
+        </Link>
+      </nav>
+    </>
+  )
+
+  const headerAuthorized = (
+    <>
+      <Logo className='header__logo' />
+      <Navigation links={HEADER_NAV_CONFIG} className='header__nav' />
+      <AccountLink className='header__account' />
+      <SideBar className='header__sidebar' isOpen={isOpen} handleBurger={handleBurger} />
+      <button
+        className={`header__burger ${isOpen ? 'header__burger_opened' : 'header__burger_closed'}`}
+        onClick={handleBurger}
+      />
+    </>
+  )
 
   return pathname === '/signup' || pathname === '/signin' ? null : (
     <header className='header'>
-      <div className='header__container container'>
-        <Logo />
-        <Navigation />
-        <Link className='header__profile hover' to='/profile'>
-          Аккаунт
-        </Link>
-        <button
-          className={`header__burger ${isOpen ? 'header__burger_opened' : 'header__burger_closed'}`}
-          onClick={() => setIsOpen(!isOpen)}
-        />
-        {/* <nav className='header__auth'>
-          <Link className='header__signup hover' to='/signup'>
-            Регистрация
-          </Link>
-          <Link className='header__signin hover' to='/signin'>
-            Войти
-          </Link>
-        </nav> */}
-
-        <nav className={`header__menu ${isOpen ? 'header__menu_opened' : 'header__menu_closed'}`}>
-          <NavLink className={({ isActive }) => (isActive ? links.active : links.inactive)} to='/'>
-            Главная
-          </NavLink>
-          <NavLink className={({ isActive }) => (isActive ? links.active : links.inactive)} to='/movies'>
-            Фильмы
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? links.active : links.inactive)}
-            to='/saved-movies'
-          >
-            Сохранённые фильмы
-          </NavLink>
-
-          <Link className='header__profile-link hover' to='/profile'>
-            Аккаунт
-          </Link>
-        </nav>
-      </div>
+      <div className='header__container container'>{isLoggedIn ? headerAuthorized : headerNotAuthorized}</div>
     </header>
   )
 }

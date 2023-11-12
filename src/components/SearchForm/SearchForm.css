@@ -58,3 +58,25 @@
 .search__submit:hover {
   scale: 1.1;
 }
+
+@media screen and (max-width: 800px) {
+  .search__info {
+    padding-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 431px) {
+  .search {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .search__info {
+    padding-bottom: 47px;
+  }
+  .search__input {
+    padding-left: 12px;
+    height: 44px;
+  }
+}

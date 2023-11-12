@@ -1,0 +1,11 @@
+.account-link {
+  padding: 8px 20px;
+  text-decoration: none;
+  color: var(--main-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+
+  border-radius: 20px;
+  background: #313131;
+}

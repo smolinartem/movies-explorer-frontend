@@ -1,16 +1,19 @@
 .movie {
-  max-width: 360px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
 }
 
 .movie__content {
   position: relative;
-  max-height: 200px;
+  /*   min-height: 168px;
+  max-height: 201px; */
+  aspect-ratio: 1.8;
   border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
-  flex: 1 1 0%;
   display: flex;
   background: #2f2f2f;
 }
@@ -131,4 +134,18 @@
   font-weight: 400;
   line-height: 10px;
   flex-shrink: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .movie__info {
+    padding: 28px 0 0 0;
+  }
+}
+@media screen and (max-width: 431px) {
+  .movie__info {
+    padding: 16px 0 0 0;
+  }
+  .movie__name {
+    font-size: 12px;
+  }
 }

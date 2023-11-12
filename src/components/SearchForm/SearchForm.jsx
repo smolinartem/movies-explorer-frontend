@@ -8,7 +8,7 @@ function SearchForm() {
         <input
           className='search__input'
           name='search-film'
-          placeholder='Фильмы'
+          placeholder='Фильм'
           type='search'
           autoComplete='off'
         />

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Login.css'
 import Logo from '../../components/Logo/Logo'
 import { useForm } from '../../hooks/useForm'
@@ -7,6 +7,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 
 function Login() {
   const location = useLocation()
+  const navigate = useNavigate()
   const { values, errors, handleChange, isValid, setValues, setIsValid } = useForm()
 
   useEffect(() => {
@@ -15,6 +16,8 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    navigate('/', { replace: true, state: true })
 
     setValues({})
     setIsValid(false)
@@ -66,11 +69,7 @@ function Login() {
 
           <button
             disabled={!isValid}
-            className={
-              !isValid
-                ? 'authorization__submit authorization__submit_disabled'
-                : 'authorization__submit hover'
-            }
+            className={`authorization__submit ${isValid ? 'hover' : 'authorization__submit_disabled'}`}
             type='submit'
           >
             Войти
