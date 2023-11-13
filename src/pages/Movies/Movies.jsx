@@ -2,6 +2,7 @@ import './Movies.css'
 
 import SearchForm from '../../components/SearchForm/SearchForm'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
+import Button from '../../components/Button/Button'
 
 function Movies() {
   return (
@@ -9,7 +10,7 @@ function Movies() {
       <div className='movies__container container'>
         <SearchForm />
         <MoviesCardList />
-        <button className='btn-more hover'>Ещё</button>
+        <Button className='movies__more hover' title='Ещё' />
       </div>
     </section>
   )

@@ -1,0 +1,38 @@
+.auth-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-nav__signup {
+  margin-right: 30px;
+  text-decoration: none;
+  color: var(--main-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.auth-nav__signin {
+  display: block;
+  padding: 8px 20px;
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+
+  font-weight: 500;
+  line-height: 16px;
+  border-radius: 3px;
+  background-color: var(--accent-green);
+}
+
+@media screen and (max-width: 480px) {
+  .auth-nav__signup {
+    margin-right: 15px;
+    font-size: 10px;
+  }
+  .auth-nav__signin {
+    font-size: 10px;
+    padding: 4px 12px;
+  }
+}

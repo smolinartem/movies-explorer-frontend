@@ -1,9 +1,13 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
+import Button from '../Button/Button'
 
 function SearchForm() {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
   return (
-    <form className='search'>
+    <form className='search' onSubmit={handleSubmit}>
       <fieldset className='search__info'>
         <input
           className='search__input'
@@ -12,7 +16,7 @@ function SearchForm() {
           type='search'
           autoComplete='off'
         />
-        <button className='search__submit' type='submit' />
+        <Button className='search__submit' type='submit' />
       </fieldset>
 
       <FilterCheckbox />

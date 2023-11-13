@@ -12,34 +12,6 @@
   gap: 16px;
 }
 
-.header__auth {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header__signup {
-  margin-right: 30px;
-  text-decoration: none;
-  color: var(--main-text);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-}
-
-.header__signin {
-  display: block;
-  padding: 8px 20px;
-  color: #000;
-  text-decoration: none;
-  font-size: 12px;
-
-  font-weight: 500;
-  line-height: 16px;
-  border-radius: 3px;
-  background-color: var(--accent-green);
-}
-
 .header__burger {
   z-index: 100;
   display: none;
@@ -84,13 +56,5 @@
 @media screen and (max-width: 480px) {
   .header__container {
     padding: 0 14px;
-  }
-  .header__signup {
-    margin-right: 15px;
-    font-size: 10px;
-  }
-  .header__signin {
-    font-size: 10px;
-    padding: 4px 12px;
   }
 }

@@ -1,23 +1,22 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import Logo from '../../components/Logo/Logo'
+import { useAuth } from '../../hooks/useAuth'
 import { useForm } from '../../hooks/useForm'
-import { useEffect } from 'react'
+
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import Button from '../../components/Button/Button'
 
 function Login() {
-  const location = useLocation()
   const navigate = useNavigate()
+  const { login } = useAuth()
   const { values, errors, handleChange, isValid, setValues, setIsValid } = useForm()
-
-  useEffect(() => {
-    setValues({ email: location.state })
-  }, [setValues, location.state])
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    navigate('/', { replace: true, state: true })
+    login()
+    navigate('/', { replace: true })
 
     setValues({})
     setIsValid(false)
@@ -36,7 +35,9 @@ function Login() {
             <input
               value={values.email || ''}
               onChange={handleChange}
-              className={`authorization__input ${errors.email ? 'authorization__input_invalid' : ''}`}
+              className={`authorization__input ${
+                errors.email ? 'authorization__input_invalid' : ''
+              }`}
               autoComplete='off'
               placeholder='email'
               type='email'
@@ -54,7 +55,9 @@ function Login() {
             <input
               value={values.password || ''}
               onChange={handleChange}
-              className={`authorization__input ${errors.password ? 'authorization__input_invalid' : ''}`}
+              className={`authorization__input ${
+                errors.password ? 'authorization__input_invalid' : ''
+              }`}
               autoComplete='off'
               placeholder='password'
               name='password'
@@ -67,13 +70,12 @@ function Login() {
 
           <ErrorMessage />
 
-          <button
-            disabled={!isValid}
-            className={`authorization__submit ${isValid ? 'hover' : 'authorization__submit_disabled'}`}
+          <Button
+            className={`authorization__submit ${isValid ? 'hover' : 'submit-disabled'}`}
             type='submit'
-          >
-            Войти
-          </button>
+            title='Войти'
+            disabled={!isValid}
+          />
         </form>
         <div className='authorization__bottom'>
           <span className='authorization__question'>Ещё не зарегистрированы?</span>

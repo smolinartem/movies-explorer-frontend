@@ -3,14 +3,17 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useForm } from '../../hooks/useForm'
+import { useAuth } from '../../hooks/useAuth'
 
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import Button from '../../components/Button/Button'
 
 function Profile() {
   const navigate = useNavigate()
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const { values, errors, handleChange, isValid, resetForm } = useForm()
-  const [isDisabled, setIsDisabled] = useState(true)
+  const { logout } = useAuth()
 
   useEffect(() => {
     resetForm({ name: 'Artem', email: 'artem@yandex.ru' }, {}, true)
@@ -21,7 +24,8 @@ function Profile() {
   }
 
   const handleExit = () => {
-    navigate('/', { replace: true, state: false })
+    logout()
+    navigate('/', { replace: true })
   }
 
   const handleSubmit = (event) => {
@@ -74,21 +78,26 @@ function Profile() {
             <ErrorMessage />
             {isDisabled ? (
               <>
-                <button className='profile__edit' type='button' onClick={handleEdit}>
-                  Редактировать
-                </button>
-                <button className='profile__exit' type='button' onClick={handleExit}>
-                  Выйти из аккаунта
-                </button>
+                <Button
+                  className='profile__edit'
+                  title='Редактировать'
+                  type='button'
+                  onClick={handleEdit}
+                />
+                <Button
+                  className='profile__exit'
+                  title='Выйти из аккаунта'
+                  type='button'
+                  onClick={handleExit}
+                />
               </>
             ) : (
-              <button
-                disabled={!isValid}
-                className={`profile__submit ${isValid ? 'hover' : 'profile__submit_disabled'}`}
+              <Button
+                className={`profile__submit ${isValid ? 'hover' : 'submit-disabled'}`}
+                title='Сохранить'
                 type='submit'
-              >
-                Сохранить
-              </button>
+                disabled={!isValid}
+              />
             )}
           </div>
         </form>

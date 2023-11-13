@@ -106,15 +106,6 @@
   line-height: normal;
 }
 
-.profile__submit_disabled {
-  background: #f8f8f8;
-  color: #c2c2c2;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: normal;
-  cursor: default;
-}
-
 .profile__edit {
   margin: 20px auto 0;
   display: block;

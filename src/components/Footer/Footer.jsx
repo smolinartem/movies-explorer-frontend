@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 function Footer() {
   const { pathname } = useLocation()
 
-  return pathname === '/profile' || pathname === '/signup' || pathname === '/signin' ? null : (
+  const footerComponent = (
     <footer className='footer'>
       <div className='footer__container container'>
         <h3 className='footer__title'>Учебный проект Яндекс.Практикум х&nbsp;BeatFilm.</h3>
@@ -36,6 +36,20 @@ function Footer() {
       </div>
     </footer>
   )
+
+  switch (pathname) {
+    case '/profile':
+      return null
+
+    case '/signup':
+      return null
+
+    case '/signin':
+      return null
+
+    default:
+      return footerComponent
+  }
 }
 
 export default Footer

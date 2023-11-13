@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import './Header.css'
+
 import Logo from '../Logo/Logo'
+import Navigation from '../Navigation/Navigation'
 import AccountLink from '../AccountLink/AccountLink'
 import SideBar from '../SideBar/SideBar'
-import Navigation from '../Navigation/Navigation'
+import Button from '../Button/Button'
+
+import { useAuth } from '../../hooks/useAuth'
 import { HEADER_NAV_CONFIG } from '../../utils/config'
+import AuthNav from '../AuthNav/AuthNav'
 
 function Header() {
-  const { pathname, state } = useLocation()
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    setIsLoggedIn(state)
-  }, [state])
+  const { isLoggedIn } = useAuth()
 
   const handleBurger = () => {
     setIsOpen(!isOpen)
@@ -25,14 +26,7 @@ function Header() {
   const headerNotAuthorized = (
     <>
       <Logo className='header__logo' />
-      <nav className='header__auth'>
-        <Link className='header__signup hover' to='/signup'>
-          Регистрация
-        </Link>
-        <Link className='header__signin hover' to='/signin'>
-          Войти
-        </Link>
-      </nav>
+      <AuthNav className='header__auth' />
     </>
   )
 
@@ -42,18 +36,32 @@ function Header() {
       <Navigation links={HEADER_NAV_CONFIG} className='header__nav' />
       <AccountLink className='header__account' />
       <SideBar className='header__sidebar' isOpen={isOpen} handleBurger={handleBurger} />
-      <button
+      <Button
         className={`header__burger ${isOpen ? 'header__burger_opened' : 'header__burger_closed'}`}
         onClick={handleBurger}
+        type='button'
       />
     </>
   )
 
-  return pathname === '/signup' || pathname === '/signin' ? null : (
+  const headerComponent = (
     <header className='header'>
-      <div className='header__container container'>{isLoggedIn ? headerAuthorized : headerNotAuthorized}</div>
+      <div className='header__container container'>
+        {isLoggedIn ? headerAuthorized : headerNotAuthorized}
+      </div>
     </header>
   )
+
+  switch (pathname) {
+    case '/signup':
+      return null
+
+    case '/signin':
+      return null
+
+    default:
+      return headerComponent
+  }
 }
 
 export default Header

@@ -65,14 +65,22 @@
   scroll-behavior: smooth;
 }
 
-.no-scroll {
-  position: fixed;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  height: 100vh;
-  overscroll-behavior: none;
+.submit-disabled {
+  background: #f8f8f8 !important;
+  color: #c2c2c2 !important;
+  cursor: default !important;
+}
+
+@media screen and (max-width: 800px) {
+  .no-scroll {
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    overscroll-behavior: none;
+  }
 }
 
 @media screen and (max-width: 480px) {

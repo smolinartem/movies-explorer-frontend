@@ -28,3 +28,5 @@ export const BURGER_NAV_CONFIG = [
     name: 'Сохранённые фильмы',
   },
 ]
+
+export const TECH_LIST = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB']
