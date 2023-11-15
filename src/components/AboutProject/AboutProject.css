@@ -1,0 +1,144 @@
+.about-project {
+  padding-top: 110px;
+  padding-bottom: 100px;
+}
+
+.about-project__info {
+  padding-top: 70px;
+  padding-bottom: 110px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.about-project__article {
+  max-width: 550px;
+}
+
+.about-project__subtitle {
+  margin: 0;
+  margin-bottom: 26px;
+  color: var(--main-text);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+}
+
+.about-project__desc {
+  margin: 0;
+  color: var(--main-text);
+  line-height: 20px;
+}
+
+.about-project__periods {
+  display: flex;
+}
+
+.about-project__stage {
+  text-align: center;
+}
+
+.about-project__stage_back {
+  width: 228px;
+  flex-shrink: 0;
+}
+.about-project__stage_front {
+  width: 100%;
+}
+
+.about-project__time {
+  padding: 9px 0;
+  display: block;
+}
+
+.about-project__time_color_green {
+  background-color: var(--accent-green);
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.about-project__time_color_grey {
+  background-color: #303030;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.about-project__tech {
+  padding: 14px 0;
+  display: block;
+
+  color: #8b8b8b;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+@media screen and (max-width: 800px) {
+  .about-project {
+    padding-top: 90px;
+    padding-bottom: 80px;
+  }
+  .about-project__container {
+    padding: 0 50px;
+  }
+  .about-project__info {
+    padding-bottom: 90px;
+    gap: 30px;
+  }
+  .about-project__subtitle {
+    margin-bottom: 22px;
+  }
+  .about-project__desc {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .about-project__stage_back {
+    width: 140px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .about-project__info {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-project {
+    padding-top: 70px;
+    padding-bottom: 80px;
+  }
+  .about-project__container {
+    padding: 0 17px;
+  }
+  .about-project__info {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    gap: 55px;
+  }
+  .about-project__subtitle {
+    margin-bottom: 18px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+  .about-project__desc {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .about-project__stage_back {
+    width: 100px;
+  }
+  .about-project__time {
+    padding: 10px 0;
+    font-size: 11px;
+  }
+  .about-project__tech {
+    padding: 10px 0;
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,151 @@
+.movie {
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie__content {
+  position: relative;
+  /*   min-height: 168px;
+  max-height: 201px; */
+  aspect-ratio: 1.8;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  background: #2f2f2f;
+}
+
+.movie__content:hover .movie__save {
+  opacity: 1;
+}
+
+.movie__content:hover .movie__saved {
+  opacity: 1;
+}
+
+.movie__content:hover .movie__delete {
+  opacity: 1;
+}
+
+.movie__save {
+  opacity: 0;
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  width: 72px;
+  height: 21px;
+  flex-shrink: 0;
+
+  border-radius: 30px;
+  background: #313131;
+
+  color: var(--main-text);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 9px;
+}
+
+.movie__saved {
+  opacity: 0;
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  background-image: url('../../images/save-btn.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.movie__delete {
+  opacity: 0;
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  background-image: url('../../images/delete-btn.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.movie__img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  vertical-align: top;
+  margin: auto;
+}
+
+.movie__info {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie__name {
+  padding-right: 10px;
+  color: var(--main-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.movie__duration {
+  padding: 3px 4px;
+  border-radius: 3px;
+  background: #2f2f2f;
+  color: #8b8b8b;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 10px;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .movie__info {
+    padding: 28px 0 0 0;
+  }
+}
+@media screen and (max-width: 431px) {
+  .movie__info {
+    padding: 16px 0 0 0;
+  }
+  .movie__name {
+    font-size: 12px;
+  }
+}

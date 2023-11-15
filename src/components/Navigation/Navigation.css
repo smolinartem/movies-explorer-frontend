@@ -1,0 +1,16 @@
+.nav {
+  display: flex;
+  align-items: center;
+}
+.nav__link {
+  padding-bottom: 6px;
+  display: block;
+  text-decoration: none;
+  color: var(--main-text);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.nav__link_active {
+  border-bottom: 2px solid #fff;
+}

@@ -1,0 +1,12 @@
+:root {
+  --main-bg: #202020;
+  --main-text: #fff;
+  --accent-green: #3ddc84;
+  --accent-blue: #4285f4;
+  --accent-red: #ee3465;
+  --input-bg: #2f2f2f;
+  --input-focus-bg: #4d4d4d;
+  --input-placeholder: #8b8b8b;
+  --input-text: #fff;
+  --section-accent-bg: #272727;
+}
