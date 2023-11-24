@@ -1,25 +1,24 @@
-import './SearchForm.css'
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
-import Button from '../Button/Button'
 import { useState } from 'react'
 
-function SearchForm() {
-  const [isValid, setIsValid] = useState(true)
-  const handleSubmit = (event) => {
-    event.preventDefault()
+import './SearchForm.css'
 
-    const form = event.target
-    setIsValid(form.checkValidity())
-  }
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
+import Button from '../Button/Button'
+
+function SearchForm({ pastSearch, handleSubmit, isValid }) {
+  const [inputValue, setInputValue] = useState(pastSearch)
+
   return (
     <form className='search' onSubmit={handleSubmit} noValidate>
       <fieldset className='search__info'>
         <input
           className={`search__input ${isValid ? '' : 'search__input_invalid'}`}
-          name='search-film'
+          name='search'
           placeholder='Фильм'
           type='search'
           autoComplete='off'
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
           required
         />
         <Button className='search__submit' type='submit' />

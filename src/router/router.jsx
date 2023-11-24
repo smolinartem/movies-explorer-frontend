@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import App from '../pages/App/App'
+import App from '../components/App/App'
 import Main from '../pages/Main/Main'
 import Movies from '../pages/Movies/Movies'
 import SavedMovies from '../pages/SavedMovies/SavedMovies'

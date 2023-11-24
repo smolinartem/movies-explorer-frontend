@@ -12,7 +12,7 @@ export const useForm = () => {
 
     if (validityState.tooShort) {
       input.setCustomValidity(`Текст должен быть не короче ${input.minLength} символов`)
-    } else if (validityState.typeMismatch) {
+    } else if (validityState.typeMismatch || validityState.patternMismatch) {
       input.setCustomValidity(`Неверно введённый ${input.name}`)
     } else if (validityState.valueMissing) {
       input.setCustomValidity(`Заполните поле ${input.name}`)
@@ -34,5 +34,5 @@ export const useForm = () => {
     [setValues, setErrors, setIsValid]
   )
 
-  return { values, setValues, errors, setErrors, handleChange, isValid, setIsValid, resetForm }
+  return { values, errors, handleChange, isValid, resetForm }
 }

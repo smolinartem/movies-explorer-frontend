@@ -8,19 +8,27 @@ import { useForm } from '../../hooks/useForm'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 
+import { register, login } from '../../utils/MainApi'
+
 function Register() {
   const navigate = useNavigate()
-  const { values, setValues, errors, handleChange, isValid, setIsValid } = useForm()
-  const { login } = useAuth()
+  const { values, errors, handleChange, isValid } = useForm()
+  const { setCurrentUser, setIsLoggedIn } = useAuth()
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    register(values)
+      .then((user) => {
+        setCurrentUser({ name: user.name, email: user.email })
+        setIsLoggedIn(true)
 
-    login()
-    navigate('/', { replace: true })
-
-    setValues({})
-    setIsValid(false)
+        login({ email: values.email, password: values.password })
+          .then(() => {
+            navigate('/movies', { replace: true })
+          })
+          .catch(() => console.error())
+      })
+      .catch(() => console.error())
   }
 
   return (
@@ -71,6 +79,7 @@ function Register() {
               name='email'
               id='email'
               type='email'
+              pattern='[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
               required
             />
             <span className='authorization__error'>{errors.email || ''}</span>

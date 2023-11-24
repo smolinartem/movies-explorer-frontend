@@ -2,6 +2,8 @@ import './Profile.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { logout, updateUserInfo } from '../../utils/MainApi'
+
 import { useForm } from '../../hooks/useForm'
 import { useAuth } from '../../hooks/useAuth'
 
@@ -10,14 +12,14 @@ import Button from '../../components/Button/Button'
 
 function Profile() {
   const navigate = useNavigate()
+  const { setIsLoggedIn, setCurrentUser, currentUser } = useAuth()
   const [isDisabled, setIsDisabled] = useState(true)
 
   const { values, errors, handleChange, isValid, resetForm } = useForm()
-  const { logout } = useAuth()
 
   useEffect(() => {
-    resetForm({ name: 'Artem', email: 'artem@yandex.ru' }, {}, true)
-  }, [resetForm])
+    resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
+  }, [resetForm, currentUser])
 
   const handleEdit = () => {
     setIsDisabled(false)
@@ -25,18 +27,35 @@ function Profile() {
 
   const handleExit = () => {
     logout()
-    navigate('/', { replace: true })
+      .then(() => {
+        setIsLoggedIn(false)
+        setCurrentUser({})
+        navigate('/', { replace: true })
+      })
+      .catch(() => console.error())
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setIsDisabled(true)
+
+    updateUserInfo(values)
+      .then((data) => {
+        setCurrentUser({ name: data.user.name, email: data.user.email })
+        resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
+      })
+      .catch((err) => {
+        resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
+        console.error()
+      })
+      .finally(() => {
+        setIsDisabled(true)
+      })
   }
 
   return (
     <section className='profile' aria-label='Section profile'>
       <div className='profile__container container'>
-        <h2 className='profile__title'>Привет, Артём!</h2>
+        <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
 
         <form className='profile__form' onSubmit={handleSubmit} noValidate>
           <span className='profile__error'>{errors.name || ''}</span>

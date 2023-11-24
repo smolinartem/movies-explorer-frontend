@@ -4,22 +4,25 @@ import Logo from '../../components/Logo/Logo'
 import { useAuth } from '../../hooks/useAuth'
 import { useForm } from '../../hooks/useForm'
 
+import { login } from '../../utils/MainApi'
+
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 
 function Login() {
   const navigate = useNavigate()
-  const { login } = useAuth()
-  const { values, errors, handleChange, isValid, setValues, setIsValid } = useForm()
+  const { setIsLoggedIn } = useAuth()
+  const { values, errors, handleChange, isValid } = useForm()
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    login()
-    navigate('/', { replace: true })
-
-    setValues({})
-    setIsValid(false)
+    login(values)
+      .then(() => {
+        setIsLoggedIn(true)
+        navigate('/movies', { replace: true })
+      })
+      .catch(() => console.error())
   }
 
   return (
@@ -41,6 +44,7 @@ function Login() {
               autoComplete='off'
               placeholder='email'
               type='email'
+              pattern='[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
               name='email'
               id='email'
               required
