@@ -27,7 +27,7 @@ export function useMovies() {
     }
   }, [width])
 
-  console.log(width, window.innerWidth, additionAmount, initialAmount)
+  /* console.log(width, window.innerWidth, additionAmount, initialAmount) */
 
   const handleShowMore = () => {
     setInitialAmount(initialAmount + additionAmount)

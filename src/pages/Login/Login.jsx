@@ -11,15 +11,16 @@ import Button from '../../components/Button/Button'
 
 function Login() {
   const navigate = useNavigate()
-  const { setIsLoggedIn } = useAuth()
+  const { setIsLoggedIn, setCurrentUser } = useAuth()
   const { values, errors, handleChange, isValid } = useForm()
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
     login(values)
-      .then(() => {
+      .then((data) => {
         setIsLoggedIn(true)
+        setCurrentUser({ name: data.user.name, email: data.user.email })
         navigate('/movies', { replace: true })
       })
       .catch(() => console.error())

@@ -10,6 +10,8 @@ import Portfolio from '../../components/Portfolio/Portfolio'
 
 import { getUser } from '../../utils/MainApi'
 import { useAuth } from '../../hooks/useAuth'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 
 function Main() {
   const { setIsLoggedIn, setCurrentUser } = useAuth()
@@ -25,11 +27,15 @@ function Main() {
 
   return (
     <>
-      <Promo />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <Header />
+      <main>
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
+      <Footer />
     </>
   )
 }

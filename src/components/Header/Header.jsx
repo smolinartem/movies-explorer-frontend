@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
 import './Header.css'
 
@@ -14,7 +13,6 @@ import { HEADER_NAV_CONFIG } from '../../utils/config'
 import AuthNav from '../AuthNav/AuthNav'
 
 function Header() {
-  const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const { isLoggedIn } = useAuth()
 
@@ -44,7 +42,7 @@ function Header() {
     </>
   )
 
-  const headerComponent = (
+  return (
     <header className='header'>
       <div className='header__container container'>
         {isLoggedIn ? headerAuthorized : headerNotAuthorized}
@@ -52,7 +50,7 @@ function Header() {
     </header>
   )
 
-  switch (pathname) {
+  /* switch (pathname) {
     case '/signup':
       return null
 
@@ -61,7 +59,7 @@ function Header() {
 
     default:
       return headerComponent
-  }
+  } */
 }
 
 export default Header

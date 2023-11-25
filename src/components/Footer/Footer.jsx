@@ -1,10 +1,7 @@
 import './Footer.css'
-import { useLocation } from 'react-router-dom'
 
 function Footer() {
-  const { pathname } = useLocation()
-
-  const footerComponent = (
+  return (
     <footer className='footer'>
       <div className='footer__container container'>
         <h3 className='footer__title'>Учебный проект Яндекс.Практикум х&nbsp;BeatFilm.</h3>
@@ -37,7 +34,7 @@ function Footer() {
     </footer>
   )
 
-  switch (pathname) {
+  /* switch (pathname) {
     case '/profile':
       return null
 
@@ -49,7 +46,7 @@ function Footer() {
 
     default:
       return footerComponent
-  }
+  } */
 }
 
 export default Footer

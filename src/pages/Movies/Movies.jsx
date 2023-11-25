@@ -8,6 +8,8 @@ import Button from '../../components/Button/Button'
 
 import { getAllMovies } from '../../utils/MoviesApi'
 import { useMovies } from '../../hooks/useMovies'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 
 export const moviesLoader = () => {
   const dataFromLocalStorage = localStorage.getItem('moviesData')
@@ -64,17 +66,23 @@ function Movies() {
   } */
 
   return (
-    <section className='movies' aria-label='Section movies'>
-      <div className='movies__container container'>
-        <SearchForm
-          /*           handleSubmit={handleSearchMovie} */
-          isValid={isValid}
-          pastSearch={data ? data.searchValue : ''}
-        />
-        <MoviesCardList isLoading={isLoading} movies={shownMovies} />
-        <Button onClick={handleShowMore} className='movies__more hover' title='Ещё' />
-      </div>
-    </section>
+    <>
+      <Header />
+      <main>
+        <section className='movies' aria-label='Section movies'>
+          <div className='movies__container container'>
+            <SearchForm
+              /*           handleSubmit={handleSearchMovie} */
+              isValid={isValid}
+              pastSearch={data ? data.searchValue : ''}
+            />
+            <MoviesCardList isLoading={isLoading} movies={shownMovies} />
+            <Button onClick={handleShowMore} className='movies__more hover' title='Ещё' />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   )
 }
 

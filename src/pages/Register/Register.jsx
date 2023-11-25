@@ -18,12 +18,11 @@ function Register() {
   const handleSubmit = (event) => {
     event.preventDefault()
     register(values)
-      .then((user) => {
-        setCurrentUser({ name: user.name, email: user.email })
-        setIsLoggedIn(true)
-
+      .then((data) => {
         login({ email: values.email, password: values.password })
-          .then(() => {
+          .then((data) => {
+            setIsLoggedIn(true)
+            setCurrentUser({ name: data.user.name, email: data.user.email })
             navigate('/movies', { replace: true })
           })
           .catch(() => console.error())
