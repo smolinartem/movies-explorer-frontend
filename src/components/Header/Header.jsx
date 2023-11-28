@@ -42,6 +42,7 @@ function Header() {
     </>
   )
 
+  /*   console.log('header render') */
   return (
     <header className='header'>
       <div className='header__container container'>

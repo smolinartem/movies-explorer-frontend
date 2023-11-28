@@ -3,7 +3,7 @@ import { useWindowSize } from './useWindowSize'
 
 export function useMovies() {
   const { width } = useWindowSize()
-  const [allMovies, setAllMovies] = useState([])
+  const [allMovies, setAllMovies] = useState(getLocalStorageMovieList())
   const [shownMovies, setShownMovies] = useState([])
 
   const [initialAmount, setInitialAmount] = useState(getInitial())
@@ -19,6 +19,10 @@ export function useMovies() {
     }
   }
 
+  function getLocalStorageMovieList() {
+    return JSON.parse(localStorage.getItem('moviesData')).moviesList
+  }
+
   useEffect(() => {
     if (width > 989) {
       setAdditionAmount(3)
@@ -27,11 +31,10 @@ export function useMovies() {
     }
   }, [width])
 
-  /* console.log(width, window.innerWidth, additionAmount, initialAmount) */
-
   const handleShowMore = () => {
     setInitialAmount(initialAmount + additionAmount)
-    setShownMovies(allMovies.slice(0, initialAmount))
+    let amount = initialAmount + additionAmount
+    setShownMovies(allMovies.slice(0, amount))
   }
 
   return {

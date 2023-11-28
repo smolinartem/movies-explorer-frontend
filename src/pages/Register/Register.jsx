@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import './Register.css'
@@ -13,21 +14,41 @@ import { register, login } from '../../utils/MainApi'
 function Register() {
   const navigate = useNavigate()
   const { values, errors, handleChange, isValid } = useForm()
-  const { setCurrentUser, setIsLoggedIn } = useAuth()
+  const { setCurrentUser, setIsLoggedIn, errMessage, setErrMessage, isLoading, setIsLoading } =
+    useAuth()
+
+  useEffect(() => {
+    return () => {
+      setErrMessage('') //очищаю стейт ошибок при размонтировании компонента
+    }
+  }, [setErrMessage])
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    setIsLoading(true)
     register(values)
       .then((data) => {
         login({ email: values.email, password: values.password })
           .then((data) => {
             setIsLoggedIn(true)
             setCurrentUser({ name: data.user.name, email: data.user.email })
+
+            window.localStorage.setItem('logged', true)
             navigate('/movies', { replace: true })
           })
           .catch(() => console.error())
       })
-      .catch(() => console.error())
+      .catch((err) => {
+        if (err === 409) {
+          setErrMessage('Пользователь с таким email уже существует.')
+        } else if (err === 500) {
+          setErrMessage('При регистрации пользователя произошла ошибка.')
+        }
+        console.error()
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -104,12 +125,12 @@ function Register() {
             <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 
-          <ErrorMessage />
+          <ErrorMessage message={errMessage} />
 
           <Button
             className={`authorization__submit ${isValid ? 'hover' : 'submit-disabled'}`}
             type='submit'
-            title='Зарегистрироваться'
+            title={isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
             disabled={!isValid}
           />
         </form>

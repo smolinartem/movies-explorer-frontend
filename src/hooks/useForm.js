@@ -34,5 +34,5 @@ export const useForm = () => {
     [setValues, setErrors, setIsValid]
   )
 
-  return { values, errors, handleChange, isValid, resetForm }
+  return { values, errors, handleChange, isValid, resetForm, setIsValid }
 }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import Logo from '../../components/Logo/Logo'
@@ -11,19 +12,40 @@ import Button from '../../components/Button/Button'
 
 function Login() {
   const navigate = useNavigate()
-  const { setIsLoggedIn, setCurrentUser } = useAuth()
+  const { setIsLoggedIn, setCurrentUser, errMessage, setErrMessage, isLoading, setIsLoading } =
+    useAuth()
   const { values, errors, handleChange, isValid } = useForm()
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    return () => {
+      setErrMessage('') //очищаю стейт ошибок при размонтировании компонента
+    }
+  }, [setErrMessage])
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
+    setIsLoading(true)
     login(values)
       .then((data) => {
         setIsLoggedIn(true)
         setCurrentUser({ name: data.user.name, email: data.user.email })
+
+        window.localStorage.setItem('logged', true)
         navigate('/movies', { replace: true })
       })
-      .catch(() => console.error())
+      .catch((err) => {
+        console.log(err)
+        if (err === 401) {
+          setErrMessage('Вы ввели неправильный логин или пароль.')
+        } else if (err === 500) {
+          setErrMessage('При авторизации пользователя произошла ошибка.')
+        }
+        console.error()
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -73,12 +95,12 @@ function Login() {
             <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 
-          <ErrorMessage />
+          <ErrorMessage message={errMessage} />
 
           <Button
             className={`authorization__submit ${isValid ? 'hover' : 'submit-disabled'}`}
             type='submit'
-            title='Войти'
+            title={isLoading ? 'Вход...' : 'Войти'}
             disabled={!isValid}
           />
         </form>

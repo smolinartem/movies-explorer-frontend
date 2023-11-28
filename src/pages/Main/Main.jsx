@@ -17,6 +17,9 @@ function Main() {
   const { setIsLoggedIn, setCurrentUser } = useAuth()
 
   useEffect(() => {
+    const logged = window.localStorage.getItem('logged') // logged=true если в куках есть токен
+    if (!logged) return
+
     getUser()
       .then((data) => {
         setIsLoggedIn(true)

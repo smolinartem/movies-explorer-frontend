@@ -2,24 +2,24 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
-function MoviesCardList({ isLoading, movies }) {
+function MoviesCardList({ isLoading = false, movies, onDelete, hasLike = [] }) {
   const moviesComponent =
     movies.length > 0 ? (
       <ul className='movies-list'>
         {movies.map((movie) => (
           <MoviesCard
-            key={movie.id}
-            name={movie.nameRU}
-            imageUrl={movie.image.url}
-            duration={movie.duration}
+            key={movie.id || movie.movieId}
+            movie={movie}
+            onDelete={onDelete}
+            isSaved={hasLike.includes(movie.id)}
           />
         ))}
       </ul>
-    ) : (
-      <span className='movies-list__text'>Ничего не найдено</span>
-    )
+    ) : null
 
   return isLoading ? <Preloader /> : moviesComponent
 }
 
 export default MoviesCardList
+
+/* <span className='movies-list__text'>Ничего не найдено</span> */

@@ -5,9 +5,10 @@ import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import Button from '../Button/Button'
 
-function SearchForm({ pastSearch, handleSubmit, isValid }) {
+function SearchForm({ pastSearch = '', handleSubmit = () => {}, isValid = true }) {
   const [inputValue, setInputValue] = useState(pastSearch)
 
+  /*   console.log('search render') */
   return (
     <form className='search' onSubmit={handleSubmit} noValidate>
       <fieldset className='search__info'>

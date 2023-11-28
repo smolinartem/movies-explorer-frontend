@@ -10,20 +10,46 @@ import { useAuth } from '../../hooks/useAuth'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 import Header from '../../components/Header/Header'
+import PopupInfo from '../../components/PopupInfo/PopupInfo'
 
 function Profile() {
   const navigate = useNavigate()
-  const { setIsLoggedIn, setCurrentUser, currentUser } = useAuth()
+  const {
+    setIsLoggedIn,
+    setCurrentUser,
+    currentUser,
+    errMessage,
+    setErrMessage,
+    isLoading,
+    setIsLoading,
+  } = useAuth()
   const [isDisabled, setIsDisabled] = useState(true)
+  const [popupIsOpen, setPopupIsOpen] = useState(false)
 
-  const { values, errors, handleChange, isValid, resetForm } = useForm()
+  const { values, errors, handleChange, isValid, resetForm, setIsValid } = useForm()
+
+  useEffect(() => {
+    return () => {
+      setErrMessage('') //очищаю стейт ошибок при размонтировании компонента
+    }
+  }, [setErrMessage])
 
   useEffect(() => {
     resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
   }, [resetForm, currentUser])
 
+  useEffect(() => {
+    if (values.email === currentUser.email && values.name === currentUser.name) {
+      setIsValid(false)
+    }
+  }, [values, currentUser, setIsValid])
+
   const handleEdit = () => {
     setIsDisabled(false)
+  }
+
+  const handlePopupClose = () => {
+    setPopupIsOpen(false)
   }
 
   const handleExit = () => {
@@ -31,6 +57,8 @@ function Profile() {
       .then(() => {
         setIsLoggedIn(false)
         setCurrentUser({})
+
+        window.localStorage.removeItem('logged')
         navigate('/', { replace: true })
       })
       .catch(() => console.error())
@@ -39,23 +67,34 @@ function Profile() {
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    setIsLoading(true)
     updateUserInfo(values)
       .then((data) => {
         setCurrentUser({ name: data.user.name, email: data.user.email })
         resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
+        setErrMessage('')
+        setPopupIsOpen(true)
       })
       .catch((err) => {
+        if (err === 409) {
+          setErrMessage('Пользователь с таким email уже существует.')
+        } else if (err === 500) {
+          setErrMessage('При обновлении профиля произошла ошибка.')
+        }
+
         resetForm({ name: currentUser.name, email: currentUser.email }, {}, false)
         console.error()
       })
       .finally(() => {
         setIsDisabled(true)
+        setIsLoading(false)
       })
   }
 
   return (
     <>
       <Header />
+      <PopupInfo isOpen={popupIsOpen} handleClose={handlePopupClose} />
       <section className='profile' aria-label='Section profile'>
         <div className='profile__container container'>
           <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
@@ -97,7 +136,7 @@ function Profile() {
             <span className='profile__error'>{errors.email || ''}</span>
 
             <div className='profile__bottom'>
-              <ErrorMessage />
+              <ErrorMessage message={errMessage} />
               {isDisabled ? (
                 <>
                   <Button
@@ -116,7 +155,7 @@ function Profile() {
               ) : (
                 <Button
                   className={`profile__submit ${isValid ? 'hover' : 'submit-disabled'}`}
-                  title='Сохранить'
+                  title={isLoading ? 'Сохранение...' : 'Сохранить'}
                   type='submit'
                   disabled={!isValid}
                 />

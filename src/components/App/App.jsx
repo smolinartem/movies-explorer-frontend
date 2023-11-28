@@ -4,7 +4,7 @@ import AuthProvider from '../../hoc/AuthProvider'
 import ProtectedRoute from '../../hoc/ProtectedRoute'
 
 import Main from '../../pages/Main/Main'
-import Movies, { moviesLoader } from '../../pages/Movies/Movies'
+import Movies from '../../pages/Movies/Movies'
 import SavedMovies from '../../pages/SavedMovies/SavedMovies'
 import Profile from '../../pages/Profile/Profile'
 import Register from '../../pages/Register/Register'
@@ -24,7 +24,6 @@ const router = createBrowserRouter([
         <Movies />
       </ProtectedRoute>
     ),
-    loader: moviesLoader,
   },
   {
     path: '/saved-movies',

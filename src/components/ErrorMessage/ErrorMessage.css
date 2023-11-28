@@ -1,4 +1,5 @@
 .error-msg {
+  min-height: 14px;
   display: block;
   color: #ff004c;
   text-align: center;
