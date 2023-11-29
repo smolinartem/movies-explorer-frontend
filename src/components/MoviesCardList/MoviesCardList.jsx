@@ -2,7 +2,7 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
-function MoviesCardList({ isLoading = false, movies, onDelete, hasLike = [] }) {
+function MoviesCardList({ isLoading = false, movies, hasLike = [] }) {
   const moviesComponent =
     movies.length > 0 ? (
       <ul className='movies-list'>
@@ -10,7 +10,6 @@ function MoviesCardList({ isLoading = false, movies, onDelete, hasLike = [] }) {
           <MoviesCard
             key={movie.id || movie.movieId}
             movie={movie}
-            onDelete={onDelete}
             isSaved={hasLike.includes(movie.id)}
           />
         ))}

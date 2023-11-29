@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './SavedMovies.css'
+
+import { getSavedMovies } from '../../utils/MoviesApi'
 
 import SearchForm from '../../components/SearchForm/SearchForm'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-
-import { getSavedMovies } from '../../utils/MoviesApi'
+import { useMMovies } from '../../hooks/useMMovies'
 
 function SavedMovies() {
-  const [savedMovies, setSavedMovies] = useState([])
+  const { savedMovies, setSavedMovies } = useMMovies()
 
   useEffect(() => {
     getSavedMovies()
@@ -17,11 +18,9 @@ function SavedMovies() {
         setSavedMovies(data.movies)
       })
       .catch(() => console.error())
-  }, [])
+  }, [setSavedMovies])
 
-  const handleDelete = (id) => {
-    setSavedMovies(savedMovies.filter((m) => m._id !== id))
-  }
+  console.log(savedMovies)
 
   return (
     <>
@@ -30,7 +29,7 @@ function SavedMovies() {
         <section className='saved-movies' aria-label='Section saved movies'>
           <div className='saved-movies__container container'>
             <SearchForm />
-            <MoviesCardList movies={savedMovies} onDelete={handleDelete} />
+            <MoviesCardList movies={savedMovies} />
           </div>
         </section>
       </main>

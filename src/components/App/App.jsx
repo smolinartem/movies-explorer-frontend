@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import AuthProvider from '../../hoc/AuthProvider'
+import MoviesProvider from '../../hoc/MoviesProvider'
 import ProtectedRoute from '../../hoc/ProtectedRoute'
 
 import Main from '../../pages/Main/Main'
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
     path: '/movies',
     element: (
       <ProtectedRoute>
-        <Movies />
+        <MoviesProvider>
+          <Movies />
+        </MoviesProvider>
       </ProtectedRoute>
     ),
   },
@@ -29,7 +32,9 @@ const router = createBrowserRouter([
     path: '/saved-movies',
     element: (
       <ProtectedRoute>
-        <SavedMovies />
+        <MoviesProvider>
+          <SavedMovies />
+        </MoviesProvider>
       </ProtectedRoute>
     ),
   },

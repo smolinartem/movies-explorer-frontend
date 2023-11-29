@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import './MoviesCard.css'
 import Button from '../Button/Button'
 
 import { createMovie, deleteMovie } from '../../utils/MoviesApi'
+import { useMMovies } from '../../hooks/useMMovies'
 
 function toHoursAndMinutes(totalMinutes) {
   const minutes = totalMinutes % 60
@@ -12,10 +13,19 @@ function toHoursAndMinutes(totalMinutes) {
   return `${hours > 0 ? `${hours}ч` : ''}${minutes > 0 ? ` ${minutes}м` : ''}`
 }
 
-function MoviesCard({ movie, onDelete, isSaved }) {
+function MoviesCard({ movie, isSaved }) {
+  const { savedMovies, setSavedMovies } = useMMovies()
   const { name = movie.nameRU, imageUrl = movie.image.url, duration } = movie
   const { pathname } = useLocation()
-  const [saved, setSaved] = useState(isSaved)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    const onSave = () => {
+      setSaved(isSaved)
+    }
+
+    onSave()
+  }, [isSaved])
 
   const handleSave = () => {
     const savedMovie = {
@@ -32,30 +42,29 @@ function MoviesCard({ movie, onDelete, isSaved }) {
       nameEN: movie.nameEN,
     }
 
-    console.log(isSaved)
-    if (isSaved) {
-      console.log(movie)
-      deleteMovie(movie)
-        .then((message) => {
-          console.log(message)
-          isSaved = !isSaved
+    if (saved) {
+      const movieToDelete = savedMovies.find((m) => m.movieId === movie.id)
+
+      deleteMovie(movieToDelete._id)
+        .then(() => {
+          setSaved(false)
         })
         .catch(() => console.error())
-    } else if (!isSaved) {
+    } else if (!saved) {
       createMovie(savedMovie)
         .then((movie) => {
-          console.log(movie)
+          setSavedMovies([...savedMovies, movie.movie])
+          setSaved(true)
         })
         .catch(() => console.error())
     }
-
-    setSaved(!saved)
   }
 
   const handleDelete = () => {
     deleteMovie(movie._id)
       .then((message) => {
-        onDelete(movie._id)
+        setSavedMovies(savedMovies.filter((m) => m._id !== movie._id))
+        console.log(message)
       })
       .catch(() => console.error())
   }
@@ -64,9 +73,9 @@ function MoviesCard({ movie, onDelete, isSaved }) {
     if (pathname === '/movies') {
       return (
         <Button
-          className={isSaved ? 'movie__saved' : 'movie__save'}
+          className={saved ? 'movie__saved' : 'movie__save'}
           type='button'
-          title={isSaved ? '' : 'Сохранить'}
+          title={saved ? '' : 'Сохранить'}
           onClick={handleSave}
         />
       )

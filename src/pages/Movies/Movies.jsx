@@ -9,13 +9,17 @@ import Button from '../../components/Button/Button'
 
 import { getAllMovies, getSavedMovies } from '../../utils/MoviesApi'
 import { useMovies } from '../../hooks/useMovies'
+import { useMMovies } from '../../hooks/useMMovies'
 
 function Movies() {
-  const { allMovies, setAllMovies, shownMovies, setShownMovies, initialAmount, handleShowMore } =
-    useMovies()
+  const { initialAmount, handleShowMore } = useMovies()
+
+  const { allMovies, setAllMovies, shownMovies, setShownMovies, shorts, setShorts } = useMMovies()
 
   const [isLoading, setIsLoading] = useState(false)
   const [hasLike, setHasLike] = useState([])
+  const [pastSearch, setPastSearch] = useState('')
+  const [shortsChecked, setShortsChecked] = useState(false)
 
   useEffect(() => {
     getSavedMovies()
@@ -32,9 +36,15 @@ function Movies() {
     setShownMovies(allMovies.slice(0, initialAmount))
   }, [allMovies, initialAmount, setShownMovies])
 
+  useEffect(() => {
+    setPastSearch(JSON.parse(localStorage.getItem('moviesData')).searchValue)
+    setShortsChecked(JSON.parse(localStorage.getItem('moviesData')).shortsChecked)
+  }, [])
+
   const handleSearchMovie = (event) => {
     event.preventDefault()
     const inputValue = event.target.search.value
+    const checkBox = event.target.checkbox
 
     setIsLoading(true)
     if (!inputValue) return setIsLoading(false)
@@ -49,11 +59,19 @@ function Movies() {
 
         if (result.length === 0) return setIsLoading(false)
 
-        setAllMovies(result)
+        if (checkBox.checked) {
+          const shortMovies = result.filter((m) => {
+            return m.duration < 40
+          })
+          setShorts(shortMovies)
+          setAllMovies(shorts)
+        } else {
+          setAllMovies(result)
+        }
 
         const moviesData = JSON.stringify({
           searchValue: inputValue,
-          shortsChecked: true,
+          shortsChecked: checkBox.checked,
           moviesList: result,
         })
 
@@ -73,7 +91,8 @@ function Movies() {
           <div className='movies__container container'>
             <SearchForm
               handleSubmit={handleSearchMovie}
-              /* pastSearch={data ? data.searchValue : ''} */
+              pastSearch={pastSearch}
+              shortsChecked={shortsChecked}
             />
 
             <MoviesCardList isLoading={isLoading} movies={shownMovies} hasLike={hasLike} />

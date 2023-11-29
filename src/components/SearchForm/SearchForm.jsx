@@ -1,14 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './SearchForm.css'
 
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import Button from '../Button/Button'
 
-function SearchForm({ pastSearch = '', handleSubmit = () => {}, isValid = true }) {
-  const [inputValue, setInputValue] = useState(pastSearch)
+function SearchForm({
+  pastSearch = '',
+  shortsChecked = false,
+  handleSubmit = () => {},
+  isValid = true,
+}) {
+  const [inputValue, setInputValue] = useState('')
+  useEffect(() => {
+    setInputValue(pastSearch)
+  }, [pastSearch])
 
-  /*   console.log('search render') */
   return (
     <form className='search' onSubmit={handleSubmit} noValidate>
       <fieldset className='search__info'>
@@ -25,7 +32,7 @@ function SearchForm({ pastSearch = '', handleSubmit = () => {}, isValid = true }
         <Button className='search__submit' type='submit' />
       </fieldset>
 
-      <FilterCheckbox />
+      <FilterCheckbox shortsChecked={shortsChecked} />
     </form>
   )
 }
