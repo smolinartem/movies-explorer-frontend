@@ -1,26 +1,30 @@
+import { useEffect } from 'react'
+import { useMovies } from '../../hooks/useMovies'
+import { useLocation } from 'react-router-dom'
+
 import './FilterCheckbox.css'
-import { useMMovies } from '../../hooks/useMMovies'
-import { useEffect, useState } from 'react'
 
-function FilterCheckbox({ shortsChecked }) {
-  const { allMovies, setShownMovies, initialAmount, shorts, setShorts } = useMMovies()
-
-  const [checked, setChecked] = useState(false)
+function FilterCheckbox() {
+  const { pathname } = useLocation()
+  const { checked, setChecked, shortMovies, searchMovies, setRenderMovies } = useMovies()
   useEffect(() => {
-    setChecked(shortsChecked)
-  }, [shortsChecked])
+    if (pathname === '/movies') {
+      const data = JSON.parse(localStorage.getItem('data'))
+      setChecked(data?.checked || false)
+    } else {
+      setChecked(false)
+    }
+  }, [setChecked, pathname])
 
   const handleCheck = (event) => {
-    setChecked(!checked)
-    const shortMovies = allMovies.filter((m) => {
-      return m.duration < 40
-    })
-    setShorts(shortMovies)
-    if (event.target.checked) {
-      setShownMovies(shorts.slice(0, initialAmount))
-    } else {
-      setShownMovies(allMovies.slice(0, initialAmount))
+    if (pathname === '/movies') {
+      if (event.target.checked) {
+        setRenderMovies(shortMovies)
+      } else {
+        setRenderMovies(searchMovies)
+      }
     }
+    setChecked(!checked)
   }
 
   return (

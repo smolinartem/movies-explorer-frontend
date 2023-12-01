@@ -2,15 +2,14 @@ import './Profile.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { logout, updateUserInfo } from '../../utils/MainApi'
-
-import { useForm } from '../../hooks/useForm'
-import { useAuth } from '../../hooks/useAuth'
-
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 import Header from '../../components/Header/Header'
 import PopupInfo from '../../components/PopupInfo/PopupInfo'
+
+import { logout, updateUserInfo } from '../../utils/MainApi'
+import { useForm } from '../../hooks/useForm'
+import { useAuth } from '../../hooks/useAuth'
 
 function Profile() {
   const navigate = useNavigate()
@@ -59,6 +58,7 @@ function Profile() {
         setCurrentUser({})
 
         window.localStorage.removeItem('logged')
+        window.localStorage.removeItem('data')
         navigate('/', { replace: true })
       })
       .catch(() => console.error())

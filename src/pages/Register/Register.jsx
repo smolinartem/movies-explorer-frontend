@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 
 import Logo from '../../components/Logo/Logo'
-import { useAuth } from '../../hooks/useAuth'
-import { useForm } from '../../hooks/useForm'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 
+import { useAuth } from '../../hooks/useAuth'
+import { useForm } from '../../hooks/useForm'
 import { register, login } from '../../utils/MainApi'
 
 function Register() {

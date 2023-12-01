@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 
 import './Header.css'
 
@@ -7,10 +7,10 @@ import Navigation from '../Navigation/Navigation'
 import AccountLink from '../AccountLink/AccountLink'
 import SideBar from '../SideBar/SideBar'
 import Button from '../Button/Button'
+import AuthNav from '../AuthNav/AuthNav'
 
 import { useAuth } from '../../hooks/useAuth'
 import { HEADER_NAV_CONFIG } from '../../utils/config'
-import AuthNav from '../AuthNav/AuthNav'
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,7 +42,6 @@ function Header() {
     </>
   )
 
-  /*   console.log('header render') */
   return (
     <header className='header'>
       <div className='header__container container'>
@@ -50,17 +49,6 @@ function Header() {
       </div>
     </header>
   )
-
-  /* switch (pathname) {
-    case '/signup':
-      return null
-
-    case '/signin':
-      return null
-
-    default:
-      return headerComponent
-  } */
 }
 
-export default Header
+export default memo(Header)

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://api.movies.krutopognali.nomoredomainsrocks.ru'
 
 const handleResponse = (res) => {
   if (res.ok) {

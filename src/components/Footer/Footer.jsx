@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import './Footer.css'
 
 function Footer() {
@@ -33,20 +34,6 @@ function Footer() {
       </div>
     </footer>
   )
-
-  /* switch (pathname) {
-    case '/profile':
-      return null
-
-    case '/signup':
-      return null
-
-    case '/signin':
-      return null
-
-    default:
-      return footerComponent
-  } */
 }
 
-export default Footer
+export default memo(Footer)

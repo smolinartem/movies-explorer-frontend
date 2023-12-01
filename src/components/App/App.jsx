@@ -1,16 +1,17 @@
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import Register from '../../pages/Register/Register'
 import AuthProvider from '../../hoc/AuthProvider'
 import MoviesProvider from '../../hoc/MoviesProvider'
 import ProtectedRoute from '../../hoc/ProtectedRoute'
 
-import Main from '../../pages/Main/Main'
-import Movies from '../../pages/Movies/Movies'
-import SavedMovies from '../../pages/SavedMovies/SavedMovies'
-import Profile from '../../pages/Profile/Profile'
-import Register from '../../pages/Register/Register'
-import Login from '../../pages/Login/Login'
-import NotFound from '../../pages/NotFound/NotFound'
+const Main = lazy(() => import('../../pages/Main/Main'))
+const Movies = lazy(() => import('../../pages/Movies/Movies'))
+const SavedMovies = lazy(() => import('../../pages/SavedMovies/SavedMovies'))
+const Profile = lazy(() => import('../../pages/Profile/Profile'))
+const Login = lazy(() => import('../../pages/Login/Login'))
+const NotFound = lazy(() => import('../../pages/NotFound/NotFound'))
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </AuthProvider>
   )
 }

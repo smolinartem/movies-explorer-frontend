@@ -7,11 +7,11 @@ import AboutProject from '../../components/AboutProject/AboutProject'
 import Techs from '../../components/Techs/Techs'
 import AboutMe from '../../components/AboutMe/AboutMe'
 import Portfolio from '../../components/Portfolio/Portfolio'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 
 import { getUser } from '../../utils/MainApi'
 import { useAuth } from '../../hooks/useAuth'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
 
 function Main() {
   const { setIsLoggedIn, setCurrentUser } = useAuth()
@@ -31,7 +31,7 @@ function Main() {
   return (
     <>
       <Header />
-      <main>
+      <main className='main'>
         <Promo />
         <AboutProject />
         <Techs />

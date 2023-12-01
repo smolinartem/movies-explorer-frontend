@@ -3,37 +3,62 @@ import { createContext, useState } from 'react'
 export const MoviesContext = createContext()
 
 function MoviesProvider({ children }) {
-  const [allMovies, setAllMovies] = useState(getLocalStorageMovieList())
-  const [shownMovies, setShownMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([])
-  const [shorts, setShorts] = useState([])
-  const [initialAmount, setInitialAmount] = useState(getInitial())
+  const [shownSavedMovies, setShownSavedMovies] = useState([])
 
-  function getInitial() {
-    if (window.innerWidth > 989) {
-      return 12
-    } else if (window.innerWidth > 689 && window.innerWidth < 990) {
-      return 8
-    } else if (window.innerWidth < 690) {
-      return 5
+  const [searchMovies, setSearchMovies] = useState(getSearchMoviesFromLS() || []) // ? отфильтрованный список фильмов
+  const [shortMovies, setShortMovies] = useState(getShortMoviesFromLS() || []) // ? только короткие фильмы
+  const [renderMovies, setRenderMovies] = useState(getRenderMovies() || []) // ? либо searchMovies, либо shortMovies
+
+  const [checked, setChecked] = useState(false)
+  const [notFound, setNotFound] = useState(getNotFound())
+
+  function getSearchMoviesFromLS() {
+    return JSON.parse(localStorage.getItem('data'))?.movies
+  }
+  function getShortMoviesFromLS() {
+    return filterSearchShorts(JSON.parse(localStorage.getItem('data'))?.movies)
+  }
+  function getRenderMovies() {
+    return JSON.parse(localStorage.getItem('data'))?.checked
+      ? filterSearchShorts(JSON.parse(localStorage.getItem('data'))?.movies)
+      : JSON.parse(localStorage.getItem('data'))?.movies
+  }
+  function getNotFound() {
+    if (JSON.parse(localStorage.getItem('data'))?.movies.length === 0) {
+      return ''
     }
   }
 
-  function getLocalStorageMovieList() {
-    return JSON.parse(localStorage.getItem('moviesData')).moviesList
+  function filterSearchAll(list, value) {
+    return list?.filter((m) => {
+      return m.nameRU.toLowerCase().includes(value) || m.nameEN.toLowerCase().includes(value)
+    })
+  }
+
+  function filterSearchShorts(list) {
+    return list?.filter((m) => {
+      return m.duration < 40
+    })
   }
 
   const value = {
-    allMovies,
-    setAllMovies,
-    shownMovies,
-    setShownMovies,
+    searchMovies,
+    setSearchMovies,
+    shortMovies,
+    setShortMovies,
+    renderMovies,
+    setRenderMovies,
     savedMovies,
     setSavedMovies,
-    initialAmount,
-    setInitialAmount,
-    shorts,
-    setShorts,
+    checked,
+    setChecked,
+    filterSearchAll,
+    filterSearchShorts,
+    notFound,
+    setNotFound,
+    shownSavedMovies,
+    setShownSavedMovies,
   }
 
   return <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>

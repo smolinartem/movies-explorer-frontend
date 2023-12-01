@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import './MoviesCard.css'
+
 import Button from '../Button/Button'
 
 import { createMovie, deleteMovie } from '../../utils/MoviesApi'
-import { useMMovies } from '../../hooks/useMMovies'
+import { useMovies } from '../../hooks/useMovies'
 
 function toHoursAndMinutes(totalMinutes) {
   const minutes = totalMinutes % 60
@@ -14,17 +16,13 @@ function toHoursAndMinutes(totalMinutes) {
 }
 
 function MoviesCard({ movie, isSaved }) {
-  const { savedMovies, setSavedMovies } = useMMovies()
+  const { savedMovies, setSavedMovies, setShownSavedMovies } = useMovies()
   const { name = movie.nameRU, imageUrl = movie.image.url, duration } = movie
   const { pathname } = useLocation()
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
-    const onSave = () => {
-      setSaved(isSaved)
-    }
-
-    onSave()
+    setSaved(isSaved)
   }, [isSaved])
 
   const handleSave = () => {
@@ -44,6 +42,7 @@ function MoviesCard({ movie, isSaved }) {
 
     if (saved) {
       const movieToDelete = savedMovies.find((m) => m.movieId === movie.id)
+      console.log(savedMovies)
 
       deleteMovie(movieToDelete._id)
         .then(() => {
@@ -63,10 +62,16 @@ function MoviesCard({ movie, isSaved }) {
   const handleDelete = () => {
     deleteMovie(movie._id)
       .then((message) => {
-        setSavedMovies(savedMovies.filter((m) => m._id !== movie._id))
+        const result = savedMovies.filter((m) => m._id !== movie._id)
+        setSavedMovies(result)
+        setShownSavedMovies(result)
         console.log(message)
       })
       .catch(() => console.error())
+  }
+
+  const handleTrailer = (url) => {
+    window.open(url, '_blank', 'noreferrer')
   }
 
   const renderButtons = () => {
@@ -87,10 +92,22 @@ function MoviesCard({ movie, isSaved }) {
   const renderImage = () => {
     if (pathname === '/movies') {
       return (
-        <img className='movie__img' src={`https://api.nomoreparties.co${imageUrl}`} alt={name} />
+        <img
+          className='movie__img'
+          src={`https://api.nomoreparties.co${imageUrl}`}
+          alt={name}
+          onClick={() => handleTrailer(`${movie.trailerLink}`)}
+        />
       )
     } else if (pathname === '/saved-movies') {
-      return <img className='movie__img' src={movie.image} alt={name} />
+      return (
+        <img
+          className='movie__img'
+          src={movie.image}
+          alt={name}
+          onClick={() => handleTrailer(`${movie.trailerLink}`)}
+        />
+      )
     }
   }
 
