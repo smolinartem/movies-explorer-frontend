@@ -1,23 +1,24 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Register from '../../pages/Register/Register'
-import AuthProvider from '../../hoc/AuthProvider'
+import NotFound from '../../pages/NotFound/NotFound'
 import MoviesProvider from '../../hoc/MoviesProvider'
 import ProtectedRoute from '../../hoc/ProtectedRoute'
+
+import { getUser } from '../../utils/MainApi'
+import { useAuth } from '../../hooks/useAuth'
 
 const Main = lazy(() => import('../../pages/Main/Main'))
 const Movies = lazy(() => import('../../pages/Movies/Movies'))
 const SavedMovies = lazy(() => import('../../pages/SavedMovies/SavedMovies'))
 const Profile = lazy(() => import('../../pages/Profile/Profile'))
 const Login = lazy(() => import('../../pages/Login/Login'))
-const NotFound = lazy(() => import('../../pages/NotFound/NotFound'))
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Main />,
-    errorElement: <NotFound />,
   },
   {
     path: '/movies',
@@ -55,15 +56,33 @@ const router = createBrowserRouter([
     path: '/signin',
     element: <Login />,
   },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
 ])
 
 function App() {
+  const { setIsLoggedIn, setCurrentUser } = useAuth()
+
+  useEffect(() => {
+    const logged = window.localStorage.getItem('logged') // logged=true если в куках есть токен
+    if (!logged) return
+
+    getUser()
+      .then((data) => {
+        setIsLoggedIn(true)
+        setCurrentUser({ name: data.user.name, email: data.user.email })
+      })
+      .catch(() => console.error())
+  }, [setIsLoggedIn, setCurrentUser])
+
   return (
-    <AuthProvider>
+    <>
       <Suspense fallback={<p>Loading...</p>}>
         <RouterProvider router={router} />
       </Suspense>
-    </AuthProvider>
+    </>
   )
 }
 

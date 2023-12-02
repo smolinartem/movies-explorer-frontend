@@ -6,11 +6,21 @@ import './FilterCheckbox.css'
 
 function FilterCheckbox() {
   const { pathname } = useLocation()
-  const { checked, setChecked, shortMovies, searchMovies, setRenderMovies } = useMovies()
+  const {
+    checked,
+    setChecked,
+    shortMovies,
+    searchMovies,
+    setRenderMovies,
+    shortSavedMovies,
+
+    searchSavedMovies,
+    setRenderSavedMovies,
+  } = useMovies()
   useEffect(() => {
     if (pathname === '/movies') {
-      const data = JSON.parse(localStorage.getItem('data'))
-      setChecked(data?.checked || false)
+      const checked = JSON.parse(localStorage.getItem('checked'))
+      setChecked(checked || false)
     } else {
       setChecked(false)
     }
@@ -20,8 +30,16 @@ function FilterCheckbox() {
     if (pathname === '/movies') {
       if (event.target.checked) {
         setRenderMovies(shortMovies)
+        localStorage.setItem('checked', true)
       } else {
         setRenderMovies(searchMovies)
+        localStorage.setItem('checked', false)
+      }
+    } else {
+      if (event.target.checked) {
+        setRenderSavedMovies(shortSavedMovies)
+      } else {
+        setRenderSavedMovies(searchSavedMovies)
       }
     }
     setChecked(!checked)

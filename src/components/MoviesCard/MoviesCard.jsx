@@ -16,7 +16,8 @@ function toHoursAndMinutes(totalMinutes) {
 }
 
 function MoviesCard({ movie, isSaved }) {
-  const { savedMovies, setSavedMovies, setShownSavedMovies } = useMovies()
+  const { savedMovies, setSavedMovies, setRenderSavedMovies, searchSavedMovies, shortSavedMovies } =
+    useMovies()
   const { name = movie.nameRU, imageUrl = movie.image.url, duration } = movie
   const { pathname } = useLocation()
   const [saved, setSaved] = useState(false)
@@ -63,8 +64,14 @@ function MoviesCard({ movie, isSaved }) {
     deleteMovie(movie._id)
       .then((message) => {
         const result = savedMovies.filter((m) => m._id !== movie._id)
+        const search = searchSavedMovies.filter((m) => m._id !== movie._id)
         setSavedMovies(result)
-        setShownSavedMovies(result)
+
+        if (savedMovies === searchSavedMovies && savedMovies === shortSavedMovies) {
+          setRenderSavedMovies(result)
+        } else {
+          setRenderSavedMovies(search)
+        }
         console.log(message)
       })
       .catch(() => console.error())

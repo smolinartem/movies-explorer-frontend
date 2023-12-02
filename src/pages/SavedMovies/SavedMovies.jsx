@@ -17,6 +17,10 @@ function SavedMovies() {
     filterSearchShorts,
     shownSavedMovies,
     setShownSavedMovies,
+    setShortSavedMovies,
+    setSearchSavedMovies,
+    renderSavedMovies,
+    setRenderSavedMovies,
   } = useMovies()
 
   const [isValid, setIsValid] = useState(true)
@@ -24,11 +28,21 @@ function SavedMovies() {
   useEffect(() => {
     getSavedMovies()
       .then((data) => {
-        setSavedMovies(data.movies)
-        setShownSavedMovies(data.movies)
+        const result = data.movies
+        const shorts = data.movies?.filter((m) => {
+          return m.duration < 40
+        })
+        setSavedMovies(result)
+        setSearchSavedMovies(result)
+        setShortSavedMovies(shorts)
+        setRenderSavedMovies(result)
       })
       .catch(() => console.error())
-  }, [setSavedMovies, setShownSavedMovies])
+  }, [setSavedMovies, setRenderSavedMovies, setSearchSavedMovies, setShortSavedMovies])
+
+  useEffect(() => {
+    setShownSavedMovies(renderSavedMovies)
+  }, [setShownSavedMovies, renderSavedMovies])
 
   function handleSearchMovies(event) {
     event.preventDefault()
@@ -44,10 +58,13 @@ function SavedMovies() {
     console.log(result, shorts, checkbox.checked)
 
     if (checkbox.checked) {
-      setShownSavedMovies(shorts)
+      setRenderSavedMovies(shorts)
     } else {
-      setShownSavedMovies(result)
+      setRenderSavedMovies(result)
     }
+
+    setSearchSavedMovies(result)
+    setShortSavedMovies(shorts)
   }
 
   return (

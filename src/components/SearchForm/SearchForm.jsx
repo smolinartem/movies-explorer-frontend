@@ -11,8 +11,8 @@ function SearchForm({ handleSubmit = () => {}, isValid = true }) {
   const [inputValue, setInputValue] = useState('')
   useEffect(() => {
     if (pathname === '/movies') {
-      const data = JSON.parse(localStorage.getItem('data'))
-      setInputValue(data?.input || '')
+      const input = JSON.parse(localStorage.getItem('input'))
+      setInputValue(input || '')
     } else {
       setInputValue('')
     }

@@ -57,8 +57,7 @@ function Profile() {
         setIsLoggedIn(false)
         setCurrentUser({})
 
-        window.localStorage.removeItem('logged')
-        window.localStorage.removeItem('data')
+        localStorage.clear()
         navigate('/', { replace: true })
       })
       .catch(() => console.error())

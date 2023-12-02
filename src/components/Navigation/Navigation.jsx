@@ -7,7 +7,9 @@ function Navigation({ links, className, handleBurger }) {
       {links.map((link) => (
         <NavLink
           key={link.id}
-          className={({ isActive }) => (isActive ? 'nav__link hover nav__link_active' : 'nav__link hover')}
+          className={({ isActive }) =>
+            isActive ? 'nav__link hover nav__link_active' : 'nav__link hover'
+          }
           to={link.to}
           onClick={handleBurger}
         >

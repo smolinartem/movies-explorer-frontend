@@ -91,13 +91,16 @@ function Movies() {
         setSearchMovies(result)
         setShortMovies(shorts)
 
-        const data = JSON.stringify({
+        localStorage.setItem('movies', JSON.stringify(result))
+        localStorage.setItem('checked', checkbox.checked)
+        localStorage.setItem('input', JSON.stringify(input))
+
+        /* const data = JSON.stringify({
           input: input,
           checked: checkbox.checked,
           movies: result,
         })
-
-        localStorage.setItem('data', data)
+        localStorage.setItem('data', data) */
       })
       .catch(() => console.error())
       .finally(() => {

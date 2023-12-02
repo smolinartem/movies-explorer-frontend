@@ -5,6 +5,9 @@ export const MoviesContext = createContext()
 function MoviesProvider({ children }) {
   const [savedMovies, setSavedMovies] = useState([])
   const [shownSavedMovies, setShownSavedMovies] = useState([])
+  const [shortSavedMovies, setShortSavedMovies] = useState([])
+  const [searchSavedMovies, setSearchSavedMovies] = useState([])
+  const [renderSavedMovies, setRenderSavedMovies] = useState([])
 
   const [searchMovies, setSearchMovies] = useState(getSearchMoviesFromLS() || []) // ? отфильтрованный список фильмов
   const [shortMovies, setShortMovies] = useState(getShortMoviesFromLS() || []) // ? только короткие фильмы
@@ -14,18 +17,18 @@ function MoviesProvider({ children }) {
   const [notFound, setNotFound] = useState(getNotFound())
 
   function getSearchMoviesFromLS() {
-    return JSON.parse(localStorage.getItem('data'))?.movies
+    return JSON.parse(localStorage.getItem('movies'))
   }
   function getShortMoviesFromLS() {
-    return filterSearchShorts(JSON.parse(localStorage.getItem('data'))?.movies)
+    return filterSearchShorts(JSON.parse(localStorage.getItem('movies')))
   }
   function getRenderMovies() {
-    return JSON.parse(localStorage.getItem('data'))?.checked
-      ? filterSearchShorts(JSON.parse(localStorage.getItem('data'))?.movies)
-      : JSON.parse(localStorage.getItem('data'))?.movies
+    return JSON.parse(localStorage.getItem('checked'))
+      ? filterSearchShorts(JSON.parse(localStorage.getItem('movies')))
+      : JSON.parse(localStorage.getItem('movies'))
   }
   function getNotFound() {
-    if (JSON.parse(localStorage.getItem('data'))?.movies.length === 0) {
+    if (JSON.parse(localStorage.getItem('movies'))?.length === 0) {
       return ''
     }
   }
@@ -59,6 +62,12 @@ function MoviesProvider({ children }) {
     setNotFound,
     shownSavedMovies,
     setShownSavedMovies,
+    shortSavedMovies,
+    setShortSavedMovies,
+    searchSavedMovies,
+    setSearchSavedMovies,
+    renderSavedMovies,
+    setRenderSavedMovies,
   }
 
   return <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>
