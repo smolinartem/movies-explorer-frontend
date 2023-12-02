@@ -67,7 +67,7 @@ function MoviesCard({ movie, isSaved }) {
         const search = searchSavedMovies.filter((m) => m._id !== movie._id)
         setSavedMovies(result)
 
-        if (savedMovies === searchSavedMovies && savedMovies === shortSavedMovies) {
+        if (savedMovies === searchSavedMovies || savedMovies === shortSavedMovies) {
           setRenderSavedMovies(result)
         } else {
           setRenderSavedMovies(search)
