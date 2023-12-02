@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, memo } from 'react'
 
 import './Header.css'
 
@@ -8,13 +7,12 @@ import Navigation from '../Navigation/Navigation'
 import AccountLink from '../AccountLink/AccountLink'
 import SideBar from '../SideBar/SideBar'
 import Button from '../Button/Button'
+import AuthNav from '../AuthNav/AuthNav'
 
 import { useAuth } from '../../hooks/useAuth'
 import { HEADER_NAV_CONFIG } from '../../utils/config'
-import AuthNav from '../AuthNav/AuthNav'
 
 function Header() {
-  const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const { isLoggedIn } = useAuth()
 
@@ -44,24 +42,13 @@ function Header() {
     </>
   )
 
-  const headerComponent = (
+  return (
     <header className='header'>
       <div className='header__container container'>
         {isLoggedIn ? headerAuthorized : headerNotAuthorized}
       </div>
     </header>
   )
-
-  switch (pathname) {
-    case '/signup':
-      return null
-
-    case '/signin':
-      return null
-
-    default:
-      return headerComponent
-  }
 }
 
-export default Header
+export default memo(Header)

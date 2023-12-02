@@ -1,7 +1,7 @@
 import './ErrorMessage.css'
 
-function ErrorMessage() {
-  return <span className='error-msg'>При обновлении профиля произошла ошибка.</span>
+function ErrorMessage({ message }) {
+  return <span className='error-msg'>{message ? message : ''}</span>
 }
 
 export default ErrorMessage

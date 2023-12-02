@@ -1,25 +1,52 @@
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './Login.css'
-import Logo from '../../components/Logo/Logo'
-import { useAuth } from '../../hooks/useAuth'
-import { useForm } from '../../hooks/useForm'
 
+import './Login.css'
+
+import Logo from '../../components/Logo/Logo'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Button from '../../components/Button/Button'
 
+import { login } from '../../utils/MainApi'
+import { useAuth } from '../../hooks/useAuth'
+import { useForm } from '../../hooks/useForm'
+
 function Login() {
   const navigate = useNavigate()
-  const { login } = useAuth()
-  const { values, errors, handleChange, isValid, setValues, setIsValid } = useForm()
+  const { setIsLoggedIn, setCurrentUser, errMessage, setErrMessage, isLoading, setIsLoading } =
+    useAuth()
+  const { values, errors, handleChange, isValid } = useForm()
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    return () => {
+      setErrMessage('') //очищаю стейт ошибок при размонтировании компонента
+    }
+  }, [setErrMessage])
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    login()
-    navigate('/', { replace: true })
+    setIsLoading(true)
+    login(values)
+      .then((data) => {
+        setIsLoggedIn(true)
+        setCurrentUser({ name: data.user.name, email: data.user.email })
 
-    setValues({})
-    setIsValid(false)
+        window.localStorage.setItem('logged', true)
+        navigate('/movies', { replace: true })
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err === 401) {
+          setErrMessage('Вы ввели неправильный логин или пароль.')
+        } else if (err === 500) {
+          setErrMessage('При авторизации пользователя произошла ошибка.')
+        }
+        console.error()
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -41,6 +68,7 @@ function Login() {
               autoComplete='off'
               placeholder='email'
               type='email'
+              pattern='[a-z0-9]+@[a-z]+\.[a-z]{2,3}'
               name='email'
               id='email'
               required
@@ -68,12 +96,12 @@ function Login() {
             <span className='authorization__error'>{errors.password || ''}</span>
           </fieldset>
 
-          <ErrorMessage />
+          <ErrorMessage message={errMessage} />
 
           <Button
             className={`authorization__submit ${isValid ? 'hover' : 'submit-disabled'}`}
             type='submit'
-            title='Войти'
+            title={isLoading ? 'Вход...' : 'Войти'}
             disabled={!isValid}
           />
         </form>
